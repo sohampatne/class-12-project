@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mom's Mechanical Table Ruling Guide - CBSE IP SQL</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 16mm; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1e293b; line-height: 1.45; font-size: 11pt; }
+  .header { text-align: center; border-bottom: 2.5px solid #2563eb; padding-bottom: 10px; margin-bottom: 15px; }
+  .title { font-size: 18pt; font-weight: 800; color: #1e3a8a; }
+  .subtitle { font-size: 11pt; font-weight: bold; color: #0284c7; margin-top: 4px; }
+  .meta { font-size: 9.5pt; color: #64748b; margin-top: 3px; }
+  
+  .instruction-box { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px; }
+  .instruction-title { font-weight: bold; color: #166534; font-size: 12pt; margin-bottom: 6px; }
+  .rule-list { margin-left: 20px; font-size: 10.5pt; }
+  .rule-list li { margin-bottom: 5px; }
+  
+  .card { border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; background: #ffffff; page-break-inside: avoid; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 8px; }
+  .card-title { font-size: 12pt; font-weight: bold; color: #1e3a8a; }
+  .spec-badge { background: #eff6ff; color: #1d4ed8; font-size: 9.5pt; font-weight: bold; padding: 2px 8px; border-radius: 4px; border: 1px solid #bfdbfe; }
+  
+  table.preview-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-family: Consolas, monospace; font-size: 10pt; }
+  table.preview-table th, table.preview-table td { border: 1.5px solid #000000; padding: 6px 10px; text-align: center; }
+  table.preview-table th { background: #f8fafc; font-weight: bold; }
+  .ruler-note { font-size: 9.5pt; color: #475569; background: #f8fafc; padding: 6px 10px; border-radius: 4px; border-left: 3px solid #3b82f6; margin-top: 6px; }
+  .page-break { page-break-after: always; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">📐 MOM'S MECHANICAL TABLE-RULING GUIDE</div>
+    <div class="subtitle">Step-by-Step Instructions to Rule SQL Output Tables with Ruler & Pencil</div>
+    <div class="meta">Lokseva E-School | Class 12 IP (065) Practical File | Candidate: Soham Patne</div>
+  </div>
+
+  <div class="instruction-box">
+    <div class="instruction-title">🌟 THE 4 GOLDEN STEPS FOR MOM:</div>
+    <ul class="rule-list">
+      <li><strong>Step 1 (Soham Writes First):</strong> Let Soham write the column headers and numbers/text in his normal handwriting on the plain white left page.</li>
+      <li><strong>Step 2 (Outer Rectangle):</strong> Place your 30cm ruler horizontally and vertically to draw a neat outer box enclosing Soham's written text (leave about 2–3 mm space around his letters).</li>
+      <li><strong>Step 3 (Header Divider Line):</strong> Draw a crisp horizontal line right underneath the top column names (e.g., under <code>student_id | name | marks</code>).</li>
+      <li><strong>Step 4 (Column Separators):</strong> Draw straight vertical lines between the columns to turn the text into an authentic database table.</li>
+    </ul>
+  </div>
+
+  <!-- TABLE 1: Practical 19 & 20 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">1. Practical 19 & Practical 20: Filtered Student Table</div>
+      <div class="spec-badge">Size: 7.5 cm × 3.2 cm | 3 Columns | 3 Rows</div>
+    </div>
+    <div style="font-size: 10pt; color: #334155; margin-bottom: 6px;">
+      <strong>Where to draw:</strong> On the left blank page opposite Experiment 19 and Experiment 20.
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 30%;">student_id (2.0 cm)</th>
+          <th style="width: 40%;">name (3.2 cm)</th>
+          <th style="width: 30%;">marks (2.3 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>101</td><td>Rohit</td><td>410</td></tr>
+        <tr><td>102</td><td>Mohit</td><td>425</td></tr>
+        <tr><td>104</td><td>Virat</td><td>495</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Total width = 7.5 cm. Column 1 = 2.0 cm, Column 2 = 3.2 cm, Column 3 = 2.3 cm. Row height = 0.8 cm per line.
+    </div>
+  </div>
+
+  <!-- TABLE 2: Practical 21 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">2. Practical 21: Joined Customer Orders Table</div>
+      <div class="spec-badge">Size: 8.5 cm × 3.2 cm | 3 Columns | 3 Rows</div>
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">orderid (2.2 cm)</th>
+          <th style="width: 40%;">customername (3.5 cm)</th>
+          <th style="width: 35%;">orderdate (2.8 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>AMIT</td><td>2020-10-10</td></tr>
+        <tr><td>2</td><td>AMIT</td><td>2020-04-05</td></tr>
+        <tr><td>3</td><td>SUMIT</td><td>2019-01-01</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Middle column (customername) needs more space (3.5 cm) for Soham's capital letters.
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- TABLE 3: Practical 23 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">3. Practical 23: Aggregate Marks Summary Table</div>
+      <div class="spec-badge">Size: 9.5 cm × 2.0 cm | 4 Columns | 1 Data Row</div>
+    </div>
+    <div style="font-size: 10pt; color: #334155; margin-bottom: 6px;">
+      <strong>Where to draw:</strong> Opposite Experiment 23 (Min, Max, Sum, Avg marks calculation).
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Min(marks) (2.4 cm)</th>
+          <th style="width: 25%;">Max(marks) (2.4 cm)</th>
+          <th style="width: 25%;">Sum(marks) (2.3 cm)</th>
+          <th style="width: 25%;">Avg(marks) (2.4 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>410</td><td>495</td><td>1805</td><td>451.2500</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Only 1 data row below the header. Total height is just 2.0 cm (0.9 cm for header + 0.9 cm for numbers).
+    </div>
+  </div>
+
+  <!-- TABLE 4: Practical 24 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">4. Practical 24: Customer Count by Country (Group By)</div>
+      <div class="spec-badge">Size: 7.5 cm × 2.6 cm | 2 Columns | 2 Rows</div>
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 45%;">country (3.5 cm)</th>
+          <th style="width: 55%;">TOTAL CUSTOMER (4.0 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AUSTRALIA</td><td>2</td></tr>
+        <tr><td>INDIA</td><td>2</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Left column = 3.5 cm; Right column = 4.0 cm. Two neat data rows.
+    </div>
+  </div>
+
+  <!-- TABLE 5: Practical 25 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">5. Practical 25: Student Date of Birth Join Table</div>
+      <div class="spec-badge">Size: 6.5 cm × 2.6 cm | 2 Columns | 2 Rows</div>
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 45%;">name (3.0 cm)</th>
+          <th style="width: 55%;">dob (3.5 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SACHIN</td><td>1982-06-17</td></tr>
+        <tr><td>AMIT</td><td>1981-05-20</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Compact 2-column box. Height = 2.6 cm.
+    </div>
+  </div>
+
+  <!-- TABLE 6: Practical 26 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">6. Practical 26: Ordered Student Marks Table (Order By)</div>
+      <div class="spec-badge">Size: 6.5 cm × 3.2 cm | 2 Columns | 3 Rows</div>
+    </div>
+    <table class="preview-table">
+      <thead>
+        <tr>
+          <th style="width: 55%;">student_id (3.5 cm)</th>
+          <th style="width: 45%;">marks (3.0 cm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>104</td><td>495</td></tr>
+        <tr><td>102</td><td>425</td></tr>
+        <tr><td>101</td><td>410</td></tr>
+      </tbody>
+    </table>
+    <div class="ruler-note">
+      <strong>Ruler Tip:</strong> Height = 3.2 cm (0.8 cm header + 3 rows of 0.7 cm each).
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 15px; font-size: 10pt; color: #64748b; font-style: italic;">
+    *** All dimensions are calibrated to fit standard CBSE A4 interleaf journal notebooks ***
+  </div>
+
+</body>
+</html>

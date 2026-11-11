@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Physics Investigatory Project - EMI (Modern Draft)</title>
+<style>
+  @page { size: A4 portrait; margin: 18mm 20mm; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; line-height: 1.6; font-size: 11pt; }
+  .header { border-bottom: 2.5px solid #2563eb; padding-bottom: 12px; margin-bottom: 20px; }
+  .title { font-size: 20pt; font-weight: 800; color: #1e3a8a; line-height: 1.25; }
+  .subtitle { font-size: 12pt; font-weight: bold; color: #0284c7; margin-top: 6px; }
+  .meta { font-size: 10pt; color: #64748b; margin-top: 4px; }
+  
+  h2 { font-size: 14pt; font-weight: bold; color: #1e3a8a; border-left: 4px solid #2563eb; padding-left: 8px; margin: 18px 0 8px 0; }
+  p { margin-bottom: 10px; text-align: justify; }
+  ul { margin: 6px 0 12px 20px; padding: 0; }
+  li { margin-bottom: 5px; }
+  
+  .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  table.data-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 10.5pt; }
+  table.data-table th, table.data-table td { border: 1px solid #cbd5e1; padding: 7px 10px; text-align: center; }
+  table.data-table th { background: #1e3a8a; color: #ffffff; font-weight: 600; }
+  table.data-table tr:nth-child(even) { background: #f1f5f9; }
+  .page-break { page-break-after: always; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">Electromagnetic Induction & Lenz's Law</div>
+    <div class="subtitle">Experimental Verification of Faraday's Laws using a Solenoid and Bar Magnet</div>
+    <div class="meta">Lokseva E-School, Pune | Class XII - Physics (042) | Candidate: Soham Patne</div>
+  </div>
+
+  <h2>1. Aim & Theoretical Foundation</h2>
+  <p>To investigate the generation of induced electromotive force (EMF) in an insulated copper wire solenoid by moving a permanent bar magnet along its axis, verifying Faraday's Law and Lenz's Law.</p>
+  <div class="card">
+    <strong>Key Mathematical Formulation:</strong>
+    <p style="margin: 4px 0 0 0; font-family: Consolas, monospace; color: #1e3a8a;">
+      Magnetic Flux: &Phi; = B &middot; A &middot; cos(&theta;)<br>
+      Faraday-Lenz Law: e = - N &middot; (d&Phi; / dt)<br>
+      Induced Current: I = e / R = - (N / R) &middot; (d&Phi; / dt)
+    </p>
+  </div>
+
+  <h2>2. Circuit Schematic</h2>
+  <div style="text-align: center; margin: 14px 0;">
+    <img src="E:/src-github-soham/class12-projects/03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/emi_circuit_diagram.png" style="width: 90%; max-height: 280px; object-fit: contain; border-radius: 6px; border: 1px solid #cbd5e1;" />
+    <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Figure 1: Solenoid, bar magnet with velocity vector, and center-zero galvanometer.</div>
+  </div>
+
+  <h2>3. Observation Data & Deflection Analysis</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Motion of Bar Magnet</th>
+        <th>Relative Motion</th>
+        <th>Galvanometer Deflection</th>
+        <th>Divisions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Magnet stationary near coil</td><td>Velocity = 0</td><td>Zero Deflection</td><td>0 div</td></tr>
+      <tr><td>2</td><td>North pole moved inwards (Moderate)</td><td>Approaching Coil</td><td>Deflects Right</td><td>+12 div</td></tr>
+      <tr><td>3</td><td>Magnet held stationary inside</td><td>Velocity = 0</td><td>Zero Deflection</td><td>0 div</td></tr>
+      <tr><td>4</td><td>North pole pulled outwards</td><td>Receding From Coil</td><td>Deflects Left</td><td>-12 div</td></tr>
+      <tr><td>5</td><td>South pole moved inwards</td><td>Approaching Coil</td><td>Deflects Left</td><td>-12 div</td></tr>
+      <tr><td>6</td><td>South pole pulled outwards</td><td>Receding From Coil</td><td>Deflects Right</td><td>+12 div</td></tr>
+      <tr><td>7</td><td>North pole pushed rapidly (High speed)</td><td>High Velocity</td><td>Deflects Right</td><td>+26 div</td></tr>
+      <tr><td>8</td><td>North pole pushed with Soft Iron Core</td><td>Enhanced &mu;r</td><td>Deflects Right</td><td>+30 div (Full)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Core Inferences & Verification</h2>
+  <ul>
+    <li><strong>Relative Motion is Essential:</strong> Zero deflection is recorded whenever relative speed between magnet and coil is zero, proving that steady flux induces no current.</li>
+    <li><strong>Speed Proportionality:</strong> Rapid motion yields more than double the deflection (+26 vs +12 div), confirming e &prop; d&Phi;/dt.</li>
+    <li><strong>Lenz's Law Confirmation:</strong> Deflection reverses polarity upon reversing pole or motion direction. Mechanical work done against magnetic resistance converts to electrical energy.</li>
+    <li><strong>Soft Iron Core Enhancement:</strong> High relative permeability (&mu;r &gt; 1000) channels magnetic field lines, driving full-scale needle deflection.</li>
+  </ul>
+
+</body>
+</html>

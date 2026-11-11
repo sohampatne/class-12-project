@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBSE Class 12 IP (065) Practical Suite & Print Engine</title>
+<style>
+  :root {
+    --bg-main: #0f172a;
+    --text-main: #f8fafc;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --border: #334155;
+    --card-bg: #1e293b;
+    --paper-white: #ffffff;
+    --ruled-blue: #93c5fd;
+    --margin-red: #ef4444;
+    --ink-blue: #1e3a8a;
+    --pencil-gray: #475569;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+
+  /* TOP NAVIGATION BAR */
+  header {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mode-switcher {
+    display: flex;
+    background: #020617;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .mode-btn {
+    padding: 7px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .mode-btn.active {
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* EXPERIMENT NAVIGATION STRIP */
+  .exp-nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px 20px;
+    background: #1e293b;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-tab {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    background: #334155;
+    color: #cbd5e1;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .exp-tab.active {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #38bdf8;
+  }
+
+  /* MAIN WORKSPACE CONTAINER */
+  main {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px 40px;
+  }
+
+  /* =========================================================================
+     APP 1: 2-PAGE INTERLEAF NOTEBOOK
+     ========================================================================= */
+  .notebook-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  @media (max-width: 992px) {
+    .notebook-container { grid-template-columns: 1fr; }
+  }
+
+  /* LEFT PAGE (WHITE PENCIL WORK) */
+  .page-left {
+    background: var(--paper-white);
+    color: #1e293b;
+    border-radius: 6px;
+    padding: 30px;
+    min-height: 650px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    border: 1px solid #cbd5e1;
+    font-family: Consolas, "Courier New", monospace;
+  }
+  .page-tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 15px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #cbd5e1;
+    display: flex;
+    justify-content: space-between;
+  }
+  .pencil-output-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 8px;
+    text-decoration: underline;
+  }
+  .pencil-output-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 20px;
+    white-space: pre;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #1e293b;
+    overflow-x: auto;
+  }
+
+  /* RIGHT PAGE (RULED BLUE PEN WORK) */
+  .page-right {
+    background: #ffffff;
+    color: var(--ink-blue);
+    border-radius: 6px;
+    padding: 25px 25px 25px 60px; /* space for red margin line */
+    min-height: 650px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    position: relative;
+    border: 1px solid #cbd5e1;
+    background-image: repeating-linear-gradient(white, white 27px, var(--ruled-blue) 28px);
+    line-height: 28px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  /* Red vertical notebook margin */
+  .page-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 45px;
+    width: 2px;
+    background: var(--margin-red);
+  }
+
+  /* Journal Header Stamp */
+  .journal-header {
+    display: flex;
+    justify-content: space-between;
+    border: 1.5px solid #1e3a8a;
+    padding: 4px 10px;
+    margin-bottom: 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 20px;
+    background: rgba(255,255,255,0.9);
+  }
+  .journal-unit-title {
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-decoration: underline;
+    margin-bottom: 4px;
+    color: #1e3a8a;
+  }
+  .journal-activity {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+  }
+  .journal-aim {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: #1e3a8a;
+  }
+  .journal-aim strong {
+    color: #b91c1c;
+  }
+  .journal-code-title {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    text-decoration: underline;
+  }
+  .journal-code {
+    font-family: Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 28px;
+    color: #0f172a;
+    white-space: pre-wrap;
+    margin-bottom: 15px;
+  }
+  .journal-code .comment {
+    color: #15803d;
+    font-style: italic;
+  }
+
+  /* =========================================================================
+     APP 2: MOM'S TABLE-RULING GUIDE
+     ========================================================================= */
+  .mom-guide-container {
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .mom-header {
+    border-bottom: 2px solid #007032;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mom-header h2 {
+    color: #007032;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  .blueprint-card {
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f8fafc;
+    margin-bottom: 25px;
+  }
+  .ruler-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .ruler-box {
+    background: #ffffff;
+    border-left: 4px solid #007032;
+    padding: 10px 14px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .ruler-box strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .ruler-box span {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .two-tone-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.95rem;
+  }
+  .two-tone-table th, .two-tone-table td {
+    border: 2px solid #000000; /* Bold black: What Mom rules */
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .two-tone-table th {
+    background: #e2e8f0;
+    color: #64748b; /* Muted: What student writes */
+    font-weight: 700;
+  }
+  .two-tone-table td {
+    color: #94a3b8; /* Muted: What student writes */
+  }
+  .legend-box {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  /* =========================================================================
+     APP 3: DAD'S OUTPUT SLIPS PRINT ENGINE
+     ========================================================================= */
+  .dad-print-container {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .print-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0f172a;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border);
+  }
+  .btn-print {
+    background: #16a34a;
+    color: #ffffff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.4);
+  }
+  .btn-print:hover { background: #15803d; }
+
+  /* Slips Grid (2 per page on A4 print) */
+  .slips-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .output-slip {
+    background: #000000;
+    border: 2px dashed #94a3b8; /* Scissor cut line */
+    border-radius: 8px;
+    padding: 16px 20px;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    color: #f8fafc;
+    font-family: Consolas, "Courier New", monospace;
+  }
+  .slip-badge-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+  }
+  .slip-badge {
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .scissor-indicator {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .terminal-window {
+    background: #090d16;
+    border-radius: 6px;
+    padding: 12px 16px;
+    border: 1px solid #1e293b;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    white-space: pre;
+    overflow-x: auto;
+    color: #38bdf8;
+  }
+  .teacher-initial-box {
+    margin-top: 14px;
+    border-top: 1px dashed #334155;
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  /* PRINT STYLES FOR DAD'S SLIPS */
+  @media print {
+    body { background: #ffffff !important; color: #000000 !important; }
+    header, .exp-nav, .print-controls, .notebook-container, .mom-guide-container { display: none !important; }
+    .dad-print-container { background: transparent !important; padding: 0 !important; }
+    .output-slip {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      border: 1.5pt dashed #475569 !important;
+      background: #000000 !important;
+      color: #ffffff !important;
+      margin: 1.5cm auto !important;
+      box-shadow: none !important;
+    }
+    .terminal-window {
+      background: #000000 !important;
+      color: #38bdf8 !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-title">
+    <span>💻</span>
+    <span>CBSE Class 12 IP (065) Practical Suite</span>
+  </div>
+  <div class="mode-switcher">
+    <button class="mode-btn active" onclick="switchMode('student')">💻 Student Journal</button>
+    <button class="mode-btn" onclick="switchMode('mom')">📐 Mom's Ruling Guide</button>
+    <button class="mode-btn" onclick="switchMode('dad')">🖨️ Dad's Slip Print Engine</button>
+  </div>
+</header>
+
+<!-- EXPERIMENT TABS (1 TO 26) -->
+<nav class="exp-nav" id="expNav"></nav>
+
+<main>
+  <!-- APP 1: STUDENT JOURNAL WORKSPACE -->
+  <section id="studentApp" class="app-section">
+    <div class="notebook-container">
+      <!-- LEFT PAGE: BLANK PENCIL WORK -->
+      <div class="page-left" id="studentLeftPage">
+        <div class="page-tag">
+          <span>LEFT PAGE (PENCIL WORK ONLY)</span>
+          <span>UNRULED PLAIN SHEET</span>
+        </div>
+        <div id="leftPageContent"></div>
+      </div>
+
+      <!-- RIGHT PAGE: RULED BLUE PEN WORK -->
+      <div class="page-right" id="studentRightPage">
+        <div class="journal-header">
+          <span>EXP NO: <span id="journalExpNum">01</span></span>
+          <span>DATE: ________________</span>
+          <span>PAGE NO: <span id="journalPageNum">01</span></span>
+        </div>
+        <div class="journal-unit-title" id="journalUnit">DATA HANDLING</div>
+        <div class="journal-activity" id="journalActivity">ACTIVITY - I</div>
+        <div class="journal-aim"><strong>AIM:</strong> <span id="journalAim"></span></div>
+        <div id="rightPageContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP 2: MOM'S RULING GUIDE -->
+  <section id="momApp" class="app-section" style="display: none;">
+    <div class="mom-guide-container">
+      <div class="mom-header">
+        <div>
+          <h2>📐 Mom's Mechanical Table-Ruling Guide</h2>
+          <div style="font-size: 0.85rem; color: #64748b;">
+            Zero code jargon. Use a 30cm ruler and HB pencil to draw the outer border and column dividers.
+          </div>
+        </div>
+        <div class="legend-box">
+          <span style="color: #000000;">■ BOLD BLACK = Rule with ruler & pencil</span>
+          <span style="color: #94a3b8;">■ GRAY TEXT = Soham writes inside</span>
+        </div>
+      </div>
+      <div id="momGuideContent"></div>
+    </div>
+  </section>
+
+  <!-- APP 3: DAD'S MULTI-THEME PRINT ENGINE -->
+  <section id="dadApp" class="app-section" style="display: none;">
+    <div class="dad-print-container">
+      <div class="print-controls" style="flex-wrap: wrap; gap: 15px;">
+        <div>
+          <h3 style="font-size: 1.2rem; color: #38bdf8; margin-bottom: 4px;">🖨️ Dad's Multi-Theme Practical Print Suite</h3>
+          <div style="font-size: 0.88rem; color: #94a3b8;">
+            Select your preferred style below. All versions are pre-compiled into print-ready PDFs in <code>ip practical/prints/</code>.
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="mode-btn active" id="btnTheme1" onclick="switchPrintTheme('dark')">🎨 Theme 1: VS Code Dark Slips</button>
+          <button class="mode-btn" id="btnTheme2" onclick="switchPrintTheme('bw')">📄 Theme 2: Crisp B&W Slips</button>
+          <button class="mode-btn" id="btnTheme3" onclick="switchPrintTheme('a4')">📑 Theme 3: Full A4 Practical Sheets</button>
+        </div>
+
+        <div style="display: flex; gap: 10px; width: 100%; justify-content: flex-end; padding-top: 8px; border-top: 1px solid #334155;">
+          <a href="prints/IP_Print_Version1_VSCode_Dark_Slips.pdf" target="_blank" class="mode-btn" style="text-decoration: none; font-size: 0.82rem; background: #1e293b; color: #38bdf8; border: 1px solid #0284c7;">📥 Dark Slips PDF (14 pgs)</a>
+          <a href="prints/IP_Print_Version2_Crisp_BW_Slips.pdf" target="_blank" class="mode-btn" style="text-decoration: none; font-size: 0.82rem; background: #1e293b; color: #f8fafc; border: 1px solid #64748b;">📥 Crisp B&W PDF (14 pgs)</a>
+          <a href="prints/IP_Print_Version3_Full_A4_Practical_Sheets.pdf" target="_blank" class="mode-btn" style="text-decoration: none; font-size: 0.82rem; background: #1e293b; color: #4ade80; border: 1px solid #16a34a;">📥 Full A4 File PDF (26 pgs)</a>
+          <button class="btn-print" onclick="window.print()">
+            <span>🖨️</span>
+            <span>Print Current Preview</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="slips-grid" id="dadSlipsContent"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+// COMPLETE DATASET OF ALL 26 PRACTICALS FROM THE SCHOOL PDF
+const PRACTICALS = [
+  {
+    id: 1,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - I",
+    aim: "Create a pandas series from a dictionary of values and an ndarray.",
+    inputs: [
+      {
+        partTitle: "Part A: Series from NumPy ndarray",
+        code: "import pandas as pd\nimport numpy as np\ns = pd.Series(np.array([1, 3, 4, 7, 8, 8, 9]))\nprint(s)",
+        output: "0    1\n1    3\n2    4\n3    7\n4    8\n5    8\n6    9\ndtype: int32"
+      },
+      {
+        partTitle: "Part B: Series from Python Dictionary",
+        code: "# import the pandas lib as pd\nimport pandas as pd\n\n# create a dictionary\ndictionary = {'A': 10, 'B': 20, 'C': 30}\n\n# create a series\nseries = pd.Series(dictionary)\nprint(series)",
+        output: "A    10\nB    20\nC    30\ndtype: int64"
+      }
+    ],
+    mom: {
+      title: "Series Output Tables (2 Tables)",
+      boxWidth: "6.5 cm",
+      boxHeight: "4.5 cm",
+      cols: "Col 1 (Index): 2.5 cm  |  Col 2 (Value): 3.5 cm",
+      rows: "Table 1: 7 rows (0.6 cm per row) | Table 2: 3 rows (0.6 cm per row)",
+      notes: "Rule two clean vertical columns. Draw a neat horizontal baseline below dtype."
+    }
+  },
+  {
+    id: 2,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - II",
+    aim: "Given a Series, print all the elements that are above the 75th percentile.",
+    inputs: [
+      {
+        partTitle: "75th Percentile Calculation & Filtering",
+        code: "import pandas as pd\nimport numpy as np\ns = pd.Series(np.array([1, 3, 4, 7, 8, 8, 9]))\nprint(s)\nres = s.quantile(q=0.75)\nprint()\nprint('75th Percentile of the series is:::')\nprint(res)\nprint()\nprint('The elements that are above the 75th percentile::')\nprint(s[s > res])",
+        output: "0    1\n1    3\n2    4\n3    7\n4    8\n5    8\n6    9\ndtype: int32\n\n75th Percentile of the series is:::\n8.0\n\nThe elements that are above the 75th percentile::\n6    9\ndtype: int32"
+      }
+    ],
+    mom: {
+      title: "Filtered Series Output",
+      boxWidth: "6.0 cm",
+      boxHeight: "3.5 cm",
+      cols: "Col 1 (Index): 2.0 cm  |  Col 2 (Value): 3.5 cm",
+      rows: "1 row of filtered result: index 6, value 9.",
+      notes: "Write percentile header text above the single-row result table."
+    }
+  },
+  {
+    id: 3,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - III",
+    aim: "Create a Data Frame quarterly sales where each row contains the item category, item name, and expenditure. Group the rows by the category, and find total expenditure.",
+    inputs: [
+      {
+        partTitle: "Quarterly Sales DataFrame & GroupBy",
+        code: "import pandas as pd\ndic = {\n    'itemcat': ['car', 'Ac', 'Aircoller', 'Washing Machine'],\n    'itemname': ['Ford', 'Hitachi', 'Symphony', 'LG'],\n    'expenditure': [7000000, 50000, 12000, 14000]\n}\nquartsales = pd.DataFrame(dic)\nprint(quartsales)\nqs = quartsales.groupby('itemcat')\nprint('Result after Filtering Dataframe')\nprint(qs[['itemcat', 'expenditure']].sum())",
+        output: "           itemcat  itemname  expenditure\n0              car      Ford      7000000\n1               Ac   Hitachi        50000\n2        Aircoller  Symphony        12000\n3  Washing Machine        LG        14000\n\nResult after Filtering Dataframe\n                 expenditure\nitemcat                     \nAc                     50000\nAircoller              12000\nWashing Machine        14000\ncar                  7000000"
+      }
+    ],
+    mom: {
+      title: "DataFrame & Grouped Aggregation Tables",
+      boxWidth: "11.5 cm",
+      boxHeight: "5.0 cm",
+      cols: "Col 1 (itemcat): 3.5 cm  |  Col 2 (itemname): 3.5 cm  |  Col 3 (expenditure): 4.0 cm",
+      rows: "Main Table: 4 rows | Grouped Summary Table: 4 rows",
+      notes: "Rule bold outer boundary. Double-line the column header row."
+    }
+  },
+  {
+    id: 4,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - IV",
+    aim: "Create a data frame based on ecommerce data and generate descriptive statistics (mean, median, mode, quartile, and variance).",
+    inputs: [
+      {
+        partTitle: "Ecommerce Descriptive Statistics",
+        code: "import pandas as pd\nsales = {\n    'InvoiceNo': [1001, 1002, 1003, 1004, 1005, 1006, 1007],\n    'ProductName': ['LED', 'AC', 'Deodrant', 'Jeans', 'Books', 'Shoes', 'Jacket'],\n    'Quantity': [2, 1, 2, 1, 2, 1, 1],\n    'Price': [65000, 55000, 500, 2500, 950, 3000, 2200]\n}\ndf = pd.DataFrame(sales)\nprint(df['Price'].describe().round(2))",
+        output: "count        7.00\nmean     18450.00\nstd      28543.61\nmin        500.00\n25%       1575.00\n50%       2500.00\n75%      29000.00\nmax      65000.00\nName: Price, dtype: float64"
+      }
+    ],
+    mom: {
+      title: "Descriptive Statistics Table",
+      boxWidth: "7.0 cm",
+      boxHeight: "5.5 cm",
+      cols: "Col 1 (Statistic Metric): 3.2 cm  |  Col 2 (Value): 3.5 cm",
+      rows: "8 metric rows (count, mean, std, min, 25%, 50%, 75%, max)",
+      notes: "Right-align numbers for clean decimal alignment."
+    }
+  },
+  {
+    id: 5,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - V",
+    aim: "Create a data frame for examination result and display row labels, column labels, data types of each column and the dimensions.",
+    inputs: [
+      {
+        partTitle: "Examination Result Attributes & Shape",
+        code: "import pandas as pd\ndic = {\n    'Class': ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],\n    'Pass-Percentage': [100, 100, 100, 100, 100, 100, 100, 100, 100, 98.6, 100, 99]\n}\nresult = pd.DataFrame(dic)\nprint(result)\nprint(result.dtypes)\nprint('shape of the dataframe is:::::')\nprint(result.shape)",
+        output: "   Class  Pass-Percentage\n0      I            100.0\n1     II            100.0\n2    III            100.0\n3     IV            100.0\n4      V            100.0\n5     VI            100.0\n6    VII            100.0\n7   VIII            100.0\n8     IX            100.0\n9      X             98.6\n10    XI            100.0\n11   XII             99.0\n\nClass              object\nPass-Percentage   float64\ndtype: object\nshape of the dataframe is:::::\n(12, 2)"
+      }
+    ],
+    mom: {
+      title: "Result Table & Shape Box",
+      boxWidth: "8.5 cm",
+      boxHeight: "7.0 cm",
+      cols: "Col 1 (Index): 1.5 cm | Col 2 (Class): 2.5 cm | Col 3 (Pass-%): 4.0 cm",
+      rows: "12 class rows (0.5 cm spacing)",
+      notes: "At the bottom, draw a small 4.0 cm × 1.2 cm box for dtypes and (12, 2) shape."
+    }
+  },
+  {
+    id: 6,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - VI",
+    aim: "Filter out rows based on different criteria such as duplicate rows.",
+    inputs: [
+      {
+        partTitle: "Duplicate Row Detection",
+        code: "import pandas as pd\ndic = {\n    'Name': ['Rohit', 'Mohit', 'Deepak', 'Rohit', 'Deepak', 'Sohit', 'Geeta'],\n    'MarksinIP': [85, 45, 92, 85, 92, 96, 84]\n}\nmarks = pd.DataFrame(dic)\n# Find duplicate rows\nduplicateRow = marks[marks.duplicated(keep=False)]\nprint(duplicateRow)",
+        output: "     Name  MarksinIP\n0   Rohit         85\n2  Deepak         92\n3   Rohit         85\n4  Deepak         92"
+      }
+    ],
+    mom: {
+      title: "Duplicate Rows Table",
+      boxWidth: "7.5 cm",
+      boxHeight: "3.5 cm",
+      cols: "Col 1 (Index): 1.8 cm | Col 2 (Name): 3.0 cm | Col 3 (MarksinIP): 2.5 cm",
+      rows: "4 rows (Indices: 0, 2, 3, 4)",
+      notes: "Only 4 duplicate entries are ruled."
+    }
+  },
+  {
+    id: 7,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - VII",
+    aim: "Find the sum of each column, or find the column with the lowest mean.",
+    inputs: [
+      {
+        partTitle: "Column-wise Sum & Minimum Mean",
+        code: "import pandas as pd\nProfit = {\n    'TCS': {'Qtr1': 2500, 'Qtr2': 2000, 'Qtr3': 3000, 'Qtr4': 2000},\n    'WIPRO': {'Qtr1': 2800, 'Qtr2': 2400, 'Qtr3': 3600, 'Qtr4': 2400},\n    'L&T': {'Qtr1': 2100, 'Qtr2': 5700, 'Qtr3': 35000, 'Qtr4': 2100}\n}\ndf = pd.DataFrame(Profit)\nprint(df)\nprint()\nprint('Column wise sum in datframe is :::')\nprint(df.sum(axis=0))\nprint()\nprint('Column wise mean value are::::::::')\nprint(df.mean(axis=0))\nprint()\nprint('Column with minimum mean value is::::::::::::')\nprint(df.mean(axis=0).idxmin())",
+        output: "       TCS  WIPRO    L&T\nQtr1  2500   2800   2100\nQtr2  2000   2400   5700\nQtr3  3000   3600  35000\nQtr4  2000   2400   2100\n\nColumn wise sum in datframe is :::\nTCS       9500\nWIPRO    11200\nL&T      44900\ndtype: int64\n\nColumn wise mean value are::::::::\nTCS       2375.0\nWIPRO     2800.0\nL&T      11225.0\ndtype: float64\n\nColumn with minimum mean value is::::::::::::\n'TCS'"
+      }
+    ],
+    mom: {
+      title: "Quarterly Matrix & Aggregations",
+      boxWidth: "10.0 cm",
+      boxHeight: "4.5 cm",
+      cols: "Col 1 (Quarter): 2.5 cm | TCS: 2.5 cm | WIPRO: 2.5 cm | L&T: 2.5 cm",
+      rows: "4 quarter rows (Qtr1 to Qtr4)",
+      notes: "Below the matrix, leave lines for Column Sum and Mean lists."
+    }
+  },
+  {
+    id: 8,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - VIII",
+    aim: "Locate the 3 largest values in a data frame.",
+    inputs: [
+      {
+        partTitle: "Top 3 Values Filtering",
+        code: "import pandas as pd\ndic = {\n    'Name': ['Rohit', 'Mohit', 'Deepak', 'Anil', 'Pankaj', 'Sohit', 'Geeta'],\n    'MarksinIP': [85, 45, 92, 85, 98, 96, 84]\n}\nmarks = pd.DataFrame(dic)\n# Find 3 Largest Value for MarksinIP Column\nprint(marks.nlargest(3, ['MarksinIP']))",
+        output: "      Name  MarksinIP\n4   Pankaj         98\n5    Sohit         96\n2   Deepak         92"
+      }
+    ],
+    mom: {
+      title: "Top 3 Largest Marks Table",
+      boxWidth: "7.5 cm",
+      boxHeight: "3.0 cm",
+      cols: "Col 1 (Index): 1.8 cm | Col 2 (Name): 3.2 cm | Col 3 (MarksinIP): 2.5 cm",
+      rows: "3 rows (Pankaj 98, Sohit 96, Deepak 92)",
+      notes: "Clean 3-row grid."
+    }
+  },
+  {
+    id: 9,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - IX",
+    aim: "Subtract the mean of a row from each element of the row in a Data Frame.",
+    inputs: [
+      {
+        partTitle: "Row-wise Mean Subtraction",
+        code: "import pandas as pd\nProfit = {\n    'TCS': {'Qtr1': 2500, 'Qtr2': 2000, 'Qtr3': 3000, 'Qtr4': 2000},\n    'WIPRO': {'Qtr1': 2800, 'Qtr2': 2400, 'Qtr3': 3600, 'Qtr4': 2400},\n    'L&T': {'Qtr1': 2100, 'Qtr2': 5700, 'Qtr3': 35000, 'Qtr4': 2100}\n}\ndf = pd.DataFrame(Profit)\nprint(df)\nprint()\nprint('Mean of each row is::::::::')\nprint(df.mean(axis=1))\nprint()\nprint('Dataframe after Subtracting mean value of each row from each element of that Row is :::')\nprint(df.sub(df.mean(axis=1), axis=0))",
+        output: "       TCS  WIPRO    L&T\nQtr1  2500   2800   2100\nQtr2  2000   2400   5700\nQtr3  3000   3600  35000\nQtr4  2000   2400   2100\n\nMean of each row is::::::::\nQtr1     2466.666667\nQtr2     3366.666667\nQtr3    13866.666667\nQtr4     2166.666667\ndtype: float64\n\nDataframe after Subtracting mean value of each row from each element of that Row is :::\n              TCS        WIPRO          L&T\nQtr1    33.333333   333.333333  -366.666667\nQtr2 -1366.666667  -966.666667  2333.333333\nQtr3 -10866.666667 -10266.666667 21133.333333\nQtr4  -166.666667   233.333333   -66.666667"
+      }
+    ],
+    mom: {
+      title: "Subtracted Mean Matrix",
+      boxWidth: "12.0 cm",
+      boxHeight: "4.5 cm",
+      cols: "Col 1: 2.5 cm | TCS: 3.0 cm | WIPRO: 3.2 cm | L&T: 3.3 cm",
+      rows: "4 rows with positive and negative decimal values",
+      notes: "Give ample horizontal room for negative numbers."
+    }
+  },
+  {
+    id: 10,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - X",
+    aim: "Replace all negative values in a data frame with a 0.",
+    inputs: [
+      {
+        partTitle: "Boolean Masking Negative Replacements",
+        code: "import pandas as pd\ndic = {'Data1': [-5, -2, 5, 8, 9, -6], 'Data2': [2, 4, 10, 15, -5, -8]}\ndf = pd.DataFrame(dic)\nprint(df)\nprint()\nprint('dataFrame after replacing negative values with 0:::')\ndf[df < 0] = 0\nprint(df)",
+        output: "   Data1  Data2\n0     -5      2\n1     -2      4\n2      5     10\n3      8     15\n4      9     -5\n5     -6     -8\n\ndataFrame after replacing negative values with 0:::\n   Data1  Data2\n0      0      2\n1      0      4\n2      5     10\n3      8     15\n4      9      0\n5      0      0"
+      }
+    ],
+    mom: {
+      title: "Before & After Zero-Replacement Tables",
+      boxWidth: "6.5 cm",
+      boxHeight: "5.0 cm",
+      cols: "Col 1 (Index): 1.5 cm | Data1: 2.5 cm | Data2: 2.5 cm",
+      rows: "6 rows per table",
+      notes: "Rule two identical tables side-by-side or stacked vertically."
+    }
+  },
+  {
+    id: 11,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - XI",
+    aim: "Replace all missing values in a data frame with a 999.",
+    inputs: [
+      {
+        partTitle: "Missing Value Imputation (fillna)",
+        code: "import pandas as pd\nimport numpy as np\nempdata = {\n    'empid': [101, 102, 103, 104, 105, 106],\n    'ename': ['Sachin', 'Vinod', 'Lakhbir', np.nan, 'Devinder', 'UmaSelvi'],\n    'Doj': ['12-01-2012', '15-01-2012', '05-09-2007', '17-01- 2012', np.nan, '16-01-2012']\n}\ndf = pd.DataFrame(empdata)\nprint(df)\ndf = df.fillna({'ename': 999, 'Doj': 999})\nprint()\nprint(df)",
+        output: "   empid     ename          Doj\n0    101    Sachin   12-01-2012\n1    102     Vinod   15-01-2012\n2    103   Lakhbir   05-09-2007\n3    104       NaN  17-01- 2012\n4    105  Devinder          NaN\n5    106  UmaSelvi   16-01-2012\n\n   empid     ename          Doj\n0    101    Sachin   12-01-2012\n1    102     Vinod   15-01-2012\n2    103   Lakhbir   05-09-2007\n3    104       999  17-01- 2012\n4    105  Devinder          999\n5    106  UmaSelvi   16-01-2012"
+      }
+    ],
+    mom: {
+      title: "Imputed Missing Value Table",
+      boxWidth: "10.0 cm",
+      boxHeight: "5.0 cm",
+      cols: "Col 1: 1.5 cm | empid: 2.0 cm | ename: 3.2 cm | Doj: 3.3 cm",
+      rows: "6 rows",
+      notes: "Clear 4-column layout."
+    }
+  },
+  {
+    id: 12,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - XII",
+    aim: "Importing and exporting data between pandas and CSV file.",
+    inputs: [
+      {
+        partTitle: "Part 1: read_csv",
+        code: "# importing pandas module\nimport pandas as pd\n# making data frame\ndf = pd.read_csv('E:\\\\emp.csv')\nprint(df)",
+        output: "   empid            ename         doj\n0    101  Sachin Bhardwaj  12-01-2012\n1    102      Vinod Verma  15-01-2012\n2    103     Anand Ganesh  05-09-2007"
+      },
+      {
+        partTitle: "Part 2: to_csv",
+        code: "import pandas as pd\nl = [\n    {'Name': 'Sachin', 'SirName': 'Bhardwaj'},\n    {'Name': 'Vinod', 'SirName': 'Verma'},\n    {'Name': 'Rajesh', 'SirName': 'Mishra'}\n]\ndf1 = pd.DataFrame(l)\n# saving the dataframe\ndf1.to_csv('E:\\\\Dataframe1.csv')",
+        output: "CSV file successfully exported to E:\\Dataframe1.csv"
+      }
+    ],
+    mom: {
+      title: "CSV Import/Export Structure",
+      boxWidth: "10.0 cm",
+      boxHeight: "3.5 cm",
+      cols: "Index: 1.5 cm | empid: 2.0 cm | ename: 3.5 cm | doj: 3.0 cm",
+      rows: "3 employee records",
+      notes: "Include small 3-row Excel grid layout below for the exported DataFrame."
+    }
+  },
+  {
+    id: 13,
+    unit: "DATA HANDLING",
+    activity: "ACTIVITY - XIII",
+    aim: "Importing and exporting data between pandas and MySQL database.",
+    inputs: [
+      {
+        partTitle: "MySQL Integration",
+        code: "import mysql.connector\nimport pandas as pd\ncon = mysql.connector.connect(host='localhost', user='root', passwd='root', database='sachin')\nemp = pd.read_sql_query('show tables from sachin', con)\nprint(emp)",
+        output: "   Tables_in_sachin\n0          employee"
+      }
+    ],
+    mom: {
+      title: "SQL Tables Output",
+      boxWidth: "6.0 cm",
+      boxHeight: "2.5 cm",
+      cols: "Col 1 (Index): 1.5 cm | Col 2 (Tables_in_sachin): 4.5 cm",
+      rows: "1 row (employee)",
+      notes: "Small single-row table."
+    }
+  },
+  {
+    id: 14,
+    unit: "DATA VISUALIZATION",
+    activity: "ACTIVITY - XIV",
+    aim: "Given the school result data, analyse the performance of the students on different parameters, e.g subject wise or class wise and plot a bar chart.",
+    inputs: [
+      {
+        partTitle: "Subject Pass Percentage Bar Chart",
+        code: "import matplotlib.pyplot as plt\nSubject = ['Physics', 'Chemistry', 'Hindi', 'Biology', 'ComputerSc']\nPercentage = [85, 78, 65, 90, 100]\nplt.bar(Subject, Percentage, align='center', color='green')\nplt.xlabel('SUBJECTS NAME')\nplt.ylabel('PASS PERCENTAGE')\nplt.title('Bar Graph For Result Analysis')\nplt.show()",
+        output: "[Matplotlib Canvas Generated: 5 Green Bars]\nPhysics: 85% | Chemistry: 78% | Hindi: 65% | Biology: 90% | ComputerSc: 100%"
+      }
+    ],
+    mom: {
+      title: "Bar Chart Sketch Blueprint",
+      boxWidth: "10.0 cm (X-axis length)",
+      boxHeight: "7.0 cm (Y-axis height)",
+      cols: "5 bars: Width 1.2 cm each | Gap between bars: 0.6 cm",
+      rows: "Y-axis scale: 0 to 100 marked at intervals of 20 (20, 40, 60, 80, 100)",
+      notes: "Draw X and Y axes with ruler and arrows. Rule 5 vertical bars: Physics=5.95cm, Chem=5.46cm, Hindi=4.55cm, Bio=6.3cm, CS=7.0cm."
+    }
+  },
+  {
+    id: 15,
+    unit: "DATA VISUALIZATION",
+    activity: "ACTIVITY - XV",
+    aim: "For the Data frames created above, analyze and plot appropriate charts with title and legend.",
+    inputs: [
+      {
+        partTitle: "Grouped Multi-Bar Chart",
+        code: "import matplotlib.pyplot as plt\nimport numpy as np\ns = ['1st', '2nd', '3rd']\nper_sc = [95, 89, 77]\nper_com = [90, 93, 75]\nper_hum = [97, 92, 77]\nx = np.arange(len(s))\nplt.bar(x, per_sc, label='Science', width=0.25, color='green')\nplt.bar(x + 0.25, per_com, label='commerce', width=0.25, color='red')\nplt.bar(x + 0.50, per_hum, label='Humanities', width=0.25, color='gold')\nplt.xticks(x, s)\nplt.xlabel('Position')\nplt.ylabel('Percentage')\nplt.title('Bar Graph For Result Analysis')\nplt.legend()\nplt.show()",
+        output: "[Matplotlib Canvas Generated: 3 Groups × 3 Bars = 9 Bars]\nClusters: 1st, 2nd, 3rd Position | Legend: Science (Green), Commerce (Red), Humanities (Gold)"
+      }
+    ],
+    mom: {
+      title: "Grouped Bar Chart Blueprint",
+      boxWidth: "11.0 cm (X-axis)",
+      boxHeight: "7.0 cm (Y-axis)",
+      cols: "3 clusters (1st, 2nd, 3rd). Each cluster has 3 bars of width 0.7 cm touching each other.",
+      rows: "Y-axis marked 0, 20, 40, 60, 80, 100.",
+      notes: "Shade Science bars solid, Commerce bars striped, Humanities bars cross-hatched for pencil distinction."
+    }
+  },
+  {
+    id: 16,
+    unit: "DATA VISUALIZATION",
+    activity: "ACTIVITY - XVI",
+    aim: "Take data of your interest from an open source (e.g. data.gov.in), aggregate and summarize it. Then plot it using different plotting functions of the Matplotlib.",
+    inputs: [
+      {
+        partTitle: "2011 Census Exploded Pie Chart",
+        code: "import pandas as pd\nimport matplotlib.pyplot as plt\ndf = pd.read_csv('E:\\\\census.csv')\nslices = (df['Total Population of other'].head(6))\nstates = (df['State/UT'].head(6))\ncols = ['m', 'c', 'g', 'b', 'r', 'gold']\nexp = [0, 0, 0, 0, 0, 0.1]\nplt.pie(slices, labels=states, colors=cols, startangle=90, explode=exp, shadow=True, autopct='%1.1f%%')\nplt.title('2011 Census Data')\nplt.legend()\nplt.show()",
+        output: "[Matplotlib Pie Canvas Generated: 6 Slices]\nStates: Andaman & Nicobar, Andhra Pradesh (45.3%), Arunachal, Assam (11.8%), Bihar (42.3%), Chandigarh (exploded)"
+      }
+    ],
+    mom: {
+      title: "Pie Chart Compass & Protractor Guide",
+      boxWidth: "Circle Radius: 4.0 cm",
+      boxHeight: "Diameter: 8.0 cm",
+      cols: "6 slices with angles: Andhra ~163°, Bihar ~152°, Assam ~42°, others ~3°",
+      rows: "Legend box on top-left: 3.5 cm × 2.5 cm",
+      notes: "Use compass to draw circle of radius 4 cm. Divide with protractor as specified. Explode Chandigarh slice by 0.5 cm."
+    }
+  },
+  {
+    id: 17,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XVII",
+    aim: "Create a student table with the student id, name, and marks as attributes where the student id is the primary key.",
+    inputs: [
+      {
+        partTitle: "CREATE TABLE Statement",
+        code: "create table student (\n    student_id varchar(10) primary key not NULL,\n    name varchar(30),\n    marks integer(5)\n);",
+        output: "Query OK, 0 rows affected (0.05 sec)"
+      }
+    ],
+    mom: {
+      title: "Table Schema Specification",
+      boxWidth: "9.0 cm",
+      boxHeight: "2.5 cm",
+      cols: "Field: 3.0 cm | Type: 3.0 cm | Key: 3.0 cm",
+      rows: "3 rows (student_id, name, marks)",
+      notes: "Rule 3 columns for table structure definition."
+    }
+  },
+  {
+    id: 18,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XVIII",
+    aim: "Insert the details of a new student in the above table.",
+    inputs: [
+      {
+        partTitle: "INSERT INTO Statements",
+        code: "insert into student values( 101, 'Rohit', 410);\ninsert into student values( 102, 'Mohit', 425);\ninsert into student values( 103, 'Rahul', 475);\ninsert into student values( 104, 'Virat', 495);",
+        output: "Query OK, 1 row affected (0.01 sec)\nQuery OK, 1 row affected (0.01 sec)\nQuery OK, 1 row affected (0.01 sec)\nQuery OK, 1 row affected (0.01 sec)"
+      }
+    ],
+    mom: {
+      title: "Inserted Records Table",
+      boxWidth: "9.5 cm",
+      boxHeight: "3.5 cm",
+      cols: "student_id: 3.0 cm | name: 3.5 cm | marks: 3.0 cm",
+      rows: "4 student rows (101 Rohit, 102 Mohit, 103 Rahul, 104 Virat)",
+      notes: "Neat 3-column table."
+    }
+  },
+  {
+    id: 19,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XIX",
+    aim: "Delete the details of a particular student in the above table.",
+    inputs: [
+      {
+        partTitle: "DELETE & Verification SELECT",
+        code: "delete from student where name='Rahul';\nselect * from student;",
+        output: "101  Rohit  410\n102  Mohit  425\n104  Virat  495"
+      }
+    ],
+    mom: {
+      title: "Post-Deletion Table (Rahul Removed)",
+      boxWidth: "9.5 cm",
+      boxHeight: "3.0 cm",
+      cols: "student_id: 3.0 cm | name: 3.5 cm | marks: 3.0 cm",
+      rows: "3 rows remaining (101, 102, 104)",
+      notes: "Rule exactly 3 data rows."
+    }
+  },
+  {
+    id: 20,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XX",
+    aim: "Use the select command to get the details of the students with marks more than 80.",
+    inputs: [
+      {
+        partTitle: "SELECT WHERE marks > 80",
+        code: "select * from student WHERE marks>80;",
+        output: "101  Rohit  410\n102  Mohit  425\n104  Virat  495"
+      }
+    ],
+    mom: {
+      title: "Filtered Students Table",
+      boxWidth: "9.5 cm",
+      boxHeight: "3.0 cm",
+      cols: "student_id: 3.0 cm | name: 3.5 cm | marks: 3.0 cm",
+      rows: "3 matching students",
+      notes: "Same grid as Activity 19."
+    }
+  },
+  {
+    id: 21,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXI",
+    aim: "Create a new table (order ID, customer Name, and order Date) by joining two tables (order ID, customer ID, and order Date) and (customer ID, customer Name).",
+    inputs: [
+      {
+        partTitle: "Table Join (Orders & Customer)",
+        code: "create table orderdetails as select orderid, customername, orderdate\nfrom orders, customer where orders.customerid=customer.customerid;\nselect * from orderdetails;",
+        output: "+---------+--------------+------------+\n| orderid | customername | orderdate  |\n+---------+--------------+------------+\n|       1 | AMIT         | 2020-10-10 |\n|       2 | AMIT         | 2020-04-05 |\n|       3 | SUMIT        | 2019-01-01 |\n+---------+--------------+------------+"
+      }
+    ],
+    mom: {
+      title: "Equi-Join OrderDetails Table",
+      boxWidth: "11.0 cm",
+      boxHeight: "3.5 cm",
+      cols: "orderid: 2.5 cm | customername: 4.5 cm | orderdate: 4.0 cm",
+      rows: "3 joined order records",
+      notes: "Rule outer box and double horizontal line below header."
+    }
+  },
+  {
+    id: 22,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXII",
+    aim: "Create a foreign key in one of the two tables mentioned above.",
+    inputs: [
+      {
+        partTitle: "ALTER TABLE ADD FOREIGN KEY",
+        code: "alter table orders add foreign key(customerid) references customer(customerid);",
+        output: "Query OK, 3 rows affected (1.22 sec)\nRecords: 3  Duplicates: 0  Warnings: 0"
+      }
+    ],
+    mom: {
+      title: "Foreign Key Status Box",
+      boxWidth: "8.5 cm",
+      boxHeight: "2.0 cm",
+      cols: "Single box outline",
+      rows: "2 lines of SQL execution status text",
+      notes: "Draw a simple rectangular box for the Query OK output."
+    }
+  },
+  {
+    id: 23,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXIII",
+    aim: "Find the min, max, sum, and average of the marks in a student marks table.",
+    inputs: [
+      {
+        partTitle: "Aggregate Functions (MIN, MAX, SUM, AVG)",
+        code: "select Min(marks), Max(marks), Sum(marks), Avg(marks) from student;",
+        output: "Min(marks)  Max(marks)  Sum(marks)  Avg(marks)\n410         495         1805        451.2500"
+      }
+    ],
+    mom: {
+      title: "Aggregate Functions Result Grid",
+      boxWidth: "11.5 cm",
+      boxHeight: "2.5 cm",
+      cols: "Min: 2.8 cm | Max: 2.8 cm | Sum: 2.8 cm | Avg: 3.1 cm",
+      rows: "1 single result row",
+      notes: "Rule 4 equal columns. Header row 0.8 cm, data row 0.8 cm."
+    }
+  },
+  {
+    id: 24,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXIV",
+    aim: "Find the total number of customers from each country in the table (customer ID, customer Name, country) using group by.",
+    inputs: [
+      {
+        partTitle: "GROUP BY Country Aggregation",
+        code: "select country,count(*) \"TOTAL CUSTOMER\" from customer group by country;",
+        output: "+-----------+----------------+\n| country   | TOTAL CUSTOMER |\n+-----------+----------------+\n| AUSTRALIA |              2 |\n| INDIA     |              2 |\n+-----------+----------------+"
+      }
+    ],
+    mom: {
+      title: "Customer Count by Country Table",
+      boxWidth: "8.5 cm",
+      boxHeight: "3.0 cm",
+      cols: "country: 4.5 cm | TOTAL CUSTOMER: 4.0 cm",
+      rows: "2 data rows (AUSTRALIA=2, INDIA=2)",
+      notes: "Clean 2-column table with neat column header divider."
+    }
+  },
+  {
+    id: 25,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXV",
+    aim: "Create a new table (name, date of birth) by joining two tables (student id, name) and (student id, date of birth).",
+    inputs: [
+      {
+        partTitle: "Table Join (Student & Birth)",
+        code: "create table stu2 as select name,dob from student,studentbirth\nwhere student.studentid=studentbirth.studentid;\nselect * from stu2;",
+        output: "+---------+------------+\n| name    | dob        |\n+---------+------------+\n| SACHIN  | 1982-06-17 |\n| AMIT    | 1981-05-20 |\n+---------+------------+\n2 rows in set (0.00 sec)"
+      }
+    ],
+    mom: {
+      title: "Joined Student DOB Table",
+      boxWidth: "8.0 cm",
+      boxHeight: "3.0 cm",
+      cols: "name: 4.0 cm | dob: 4.0 cm",
+      rows: "2 student rows (SACHIN, AMIT)",
+      notes: "Rule 2 equal 4.0 cm columns."
+    }
+  },
+  {
+    id: 26,
+    unit: "SQL QUERIES",
+    activity: "ACTIVITY - XXVI",
+    aim: "Write a SQL query to order the (student ID, marks) table in descending order of the marks.",
+    inputs: [
+      {
+        partTitle: "ORDER BY marks DESC",
+        code: "select student_id, marks from student order by marks desc;",
+        output: "+------------+-------+\n| student_id | marks |\n+------------+-------+\n| 104        |   495 |\n| 102        |   425 |\n| 101        |   410 |\n+------------+-------+"
+      }
+    ],
+    mom: {
+      title: "Descending Marks Table",
+      boxWidth: "7.5 cm",
+      boxHeight: "3.5 cm",
+      cols: "student_id: 3.5 cm | marks: 4.0 cm",
+      rows: "3 rows ordered descending",
+      notes: "Rule 2 columns. Last practical in journal!"
+    }
+  }
+];
+
+let currentExpId = 1;
+
+// INITIALIZE EXPERIMENT NAV TABS
+function initNav() {
+  const nav = document.getElementById('expNav');
+  nav.innerHTML = '';
+  PRACTICALS.forEach(exp => {
+    const btn = document.createElement('button');
+    btn.className = `exp-tab ${exp.id === currentExpId ? 'active' : ''}`;
+    btn.innerText = `Exp ${exp.id < 10 ? '0' + exp.id : exp.id}`;
+    btn.onclick = () => selectExp(exp.id);
+    nav.appendChild(btn);
+  });
+}
+
+function selectExp(id) {
+  currentExpId = id;
+  document.querySelectorAll('.exp-tab').forEach((t, i) => {
+    t.classList.toggle('active', PRACTICALS[i].id === id);
+  });
+  renderStudentApp();
+  renderMomApp();
+}
+
+// RENDER APP 1: STUDENT JOURNAL
+function renderStudentApp() {
+  const exp = PRACTICALS.find(p => p.id === currentExpId);
+  if (!exp) return;
+
+  // Header info
+  document.getElementById('journalExpNum').innerText = exp.id < 10 ? '0' + exp.id : exp.id;
+  document.getElementById('journalPageNum').innerText = exp.id < 10 ? '0' + exp.id : exp.id;
+  document.getElementById('journalUnit').innerText = exp.unit;
+  document.getElementById('journalActivity').innerText = exp.activity;
+  document.getElementById('journalAim').innerText = exp.aim;
+
+  // Left Page Content (Pencil Outputs)
+  const leftBox = document.getElementById('leftPageContent');
+  leftBox.innerHTML = '';
+  exp.inputs.forEach((inp, idx) => {
+    const t = document.createElement('div');
+    t.className = 'pencil-output-title';
+    t.innerText = exp.inputs.length > 1 ? `${idx + 1}. OUTPUT:` : 'OUTPUT:';
+    leftBox.appendChild(t);
+
+    const b = document.createElement('div');
+    b.className = 'pencil-output-box';
+    b.innerText = inp.output;
+    leftBox.appendChild(b);
+  });
+
+  // Right Page Content (Ruled Pen Inputs)
+  const rightBox = document.getElementById('rightPageContent');
+  rightBox.innerHTML = '';
+  exp.inputs.forEach(inp => {
+    const t = document.createElement('div');
+    t.className = 'journal-code-title';
+    t.innerText = 'INPUT:';
+    rightBox.appendChild(t);
+
+    const c = document.createElement('div');
+    c.className = 'journal-code';
+    // Style comments nicely
+    const lines = inp.code.split('\n').map(l => {
+      if (l.trim().startsWith('#')) return `<span class="comment">${l}</span>`;
+      return l;
+    }).join('\n');
+    c.innerHTML = lines;
+    rightBox.appendChild(c);
+  });
+}
+
+// RENDER APP 2: MOM'S RULING GUIDE
+function renderMomApp() {
+  const exp = PRACTICALS.find(p => p.id === currentExpId);
+  if (!exp) return;
+
+  const box = document.getElementById('momGuideContent');
+  box.innerHTML = `
+    <div class="blueprint-card">
+      <div style="font-size: 1.15rem; font-weight: 800; color: #007032; margin-bottom: 15px;">
+        Activity ${exp.id}: ${exp.mom.title}
+      </div>
+
+      <div class="ruler-spec-grid">
+        <div class="ruler-box">
+          <strong>Outer Frame Width</strong>
+          <span>${exp.mom.boxWidth}</span>
+        </div>
+        <div class="ruler-box">
+          <strong>Outer Frame Height</strong>
+          <span>${exp.mom.boxHeight}</span>
+        </div>
+        <div class="ruler-box">
+          <strong>Row Count & Spacing</strong>
+          <span>${exp.mom.rows}</span>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+        <div style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 8px;">
+          Ruler Column Width Instructions:
+        </div>
+        <div style="font-size: 1rem; font-weight: 700; color: #1e3a8a;">
+          ${exp.mom.cols}
+        </div>
+        <div style="font-size: 0.9rem; color: #334155; margin-top: 6px; font-style: italic;">
+          ${exp.mom.notes}
+        </div>
+      </div>
+
+      <div style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-top: 15px;">
+        Visual Table Blueprint:
+      </div>
+      <table class="two-tone-table">
+        <thead>
+          <tr>
+            <th>Column Header (0.8 cm)</th>
+            <th>Data Column (0.8 cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>[Rule solid black line]</td>
+            <td>[Student writes value inside]</td>
+          </tr>
+          <tr>
+            <td>[Rule solid black line]</td>
+            <td>[Student writes value inside]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// RENDER APP 3: DAD'S SLIPS PRINT ENGINE
+let currentPrintTheme = 'dark';
+
+function switchPrintTheme(theme) {
+  currentPrintTheme = theme;
+  document.getElementById('btnTheme1').classList.toggle('active', theme === 'dark');
+  document.getElementById('btnTheme2').classList.toggle('active', theme === 'bw');
+  document.getElementById('btnTheme3').classList.toggle('active', theme === 'a4');
+  renderDadSlips();
+}
+
+function renderDadSlips() {
+  const container = document.getElementById('dadSlipsContent');
+  container.innerHTML = '';
+
+  if (currentPrintTheme === 'dark') {
+    PRACTICALS.forEach(exp => {
+      exp.inputs.forEach((inp, idx) => {
+        const partSuffix = exp.inputs.length > 1 ? ' (Part ' + String.fromCharCode(65 + idx) + ')' : '';
+        const fileName = `exp${exp.id < 10 ? '0' + exp.id : exp.id}.${exp.unit === 'SQL QUERIES' ? 'sql' : 'py'}`;
+        const cmdPrompt = exp.unit === 'SQL QUERIES' ? `mysql -u root -p school_db &lt; ${fileName}` : `python ${fileName}`;
+
+        const slip = document.createElement('div');
+        slip.className = 'output-slip';
+        slip.style.background = '#1e1e1e';
+        slip.style.border = '1.5px solid #334155';
+        slip.style.borderRadius = '8px';
+        slip.style.padding = '0';
+        slip.style.overflow = 'hidden';
+
+        slip.innerHTML = `
+          <div style="background: #181818; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d2d2d; font-size: 11px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span>🔴 🟡 🟢</span>
+              <span style="color: #9cdcfe; font-family: monospace;">📄 ${fileName}</span>
+            </div>
+            <span style="background: #0284c7; color: #fff; font-weight: bold; padding: 2px 8px; border-radius: 4px; font-size: 10.5px;">EXP NO: ${exp.id < 10 ? '0' + exp.id : exp.id}${partSuffix}</span>
+          </div>
+          <div style="padding: 10px 14px; background: #0f172a; font-family: monospace; font-size: 11px; line-height: 1.45; color: #38bdf8; min-height: 120px; white-space: pre-wrap;">
+            <div style="color: #4ade80; font-weight: bold; margin-bottom: 6px;">PS E:\CBSE_Class12\IP&gt; ${cmdPrompt}</div>
+            <div style="color: #93c5fd;">${escapeHtml(inp.output)}</div>
+          </div>
+          <div style="background: #181818; padding: 6px 12px; display: flex; justify-content: space-between; font-size: 10.5px; color: #94a3b8; border-top: 1px solid #2d2d2d;">
+            <span>✂ Cut along line to paste in journal (left unruled page)</span>
+            <span>Teacher Sign: ________ Marks: [ /5]</span>
+          </div>
+        `;
+        container.appendChild(slip);
+      });
+    });
+  } else if (currentPrintTheme === 'bw') {
+    PRACTICALS.forEach(exp => {
+      exp.inputs.forEach((inp, idx) => {
+        const partSuffix = exp.inputs.length > 1 ? ' (Part ' + String.fromCharCode(65 + idx) + ')' : '';
+        const fileName = `exp${exp.id < 10 ? '0' + exp.id : exp.id}.${exp.unit === 'SQL QUERIES' ? 'sql' : 'py'}`;
+        const cmdPrompt = exp.unit === 'SQL QUERIES' ? `mysql -u root -p &lt; ${fileName}` : `python ${fileName}`;
+
+        const slip = document.createElement('div');
+        slip.className = 'output-slip';
+        slip.style.background = '#ffffff';
+        slip.style.border = '2px solid #000000';
+        slip.style.borderRadius = '4px';
+        slip.style.padding = '0';
+        slip.style.color = '#000000';
+        slip.style.overflow = 'hidden';
+
+        slip.innerHTML = `
+          <div style="background: #f1f5f9; padding: 6px 12px; display: flex; justify-content: space-between; font-weight: bold; border-bottom: 1.5px solid #000000; font-size: 11.5px;">
+            <span>CBSE CLASS 12 IP (065) &bull; ${exp.unit}</span>
+            <span>EXP NO: ${exp.id < 10 ? '0' + exp.id : exp.id}${partSuffix}</span>
+          </div>
+          <div style="padding: 10px 14px; background: #ffffff; font-family: monospace; font-size: 10.5px; line-height: 1.4; color: #000000; min-height: 120px; white-space: pre-wrap;">C:\Users\Soham\Class12\IP&gt; ${cmdPrompt}
+${escapeHtml(inp.output)}</div>
+          <div style="background: #fafafa; padding: 6px 12px; display: flex; justify-content: space-between; font-weight: bold; border-top: 1.5px solid #000000; font-size: 10.5px;">
+            <span>✂ Dashed scissor line</span>
+            <span>Teacher Signature: __________________</span>
+            <span>Grade: [ /5]</span>
+          </div>
+        `;
+        container.appendChild(slip);
+      });
+    });
+  } else if (currentPrintTheme === 'a4') {
+    PRACTICALS.forEach(exp => {
+      const fileName = `exp${exp.id < 10 ? '0' + exp.id : exp.id}.${exp.unit === 'SQL QUERIES' ? 'sql' : 'py'}`;
+      const combinedCode = exp.inputs.map(inp => `# ${inp.partTitle}\n${inp.code}`).join('\n\n');
+      const combinedOut = exp.inputs.map(inp => `>>> ${inp.partTitle} Output:\n${inp.output}`).join('\n\n');
+
+      const sheet = document.createElement('div');
+      sheet.style.background = '#ffffff';
+      sheet.style.border = '2px solid #007032';
+      sheet.style.borderRadius = '6px';
+      sheet.style.padding = '15px';
+      sheet.style.margin = '15px 0';
+      sheet.style.color = '#0f172a';
+
+      sheet.innerHTML = `
+        <div style="text-align: center; border-bottom: 2px solid #007032; padding-bottom: 6px; margin-bottom: 10px;">
+          <div style="font-size: 1.15rem; font-weight: 800; color: #007032;">LOKSEVA E-SCHOOL, PUNE</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: #c21807;">INFORMATICS PRACTICES (065) &bull; EXPERIMENT NO: ${exp.id < 10 ? '0' + exp.id : exp.id}</div>
+        </div>
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 4px 10px; font-size: 0.85rem; font-weight: bold; color: #166534; margin-bottom: 8px;">
+          UNIT: ${exp.unit} &bull; ${exp.activity}
+        </div>
+        <div style="background: #f8fafc; border-left: 3px solid #007032; padding: 6px 10px; font-size: 0.88rem; margin-bottom: 10px;">
+          <strong>AIM:</strong> ${escapeHtml(exp.aim)}
+        </div>
+        <div style="background: #1e1e1e; border: 1px solid #334155; border-radius: 4px; padding: 8px 12px; margin-bottom: 10px; font-family: monospace; font-size: 0.82rem; color: #d4d4d4; white-space: pre-wrap;">
+          <div style="color: #9cdcfe; margin-bottom: 4px; font-weight: bold;">💻 Source Code (${fileName}):</div>
+          ${escapeHtml(combinedCode)}
+        </div>
+        <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 4px; padding: 8px 12px; margin-bottom: 10px; font-family: monospace; font-size: 0.82rem; color: #38bdf8; white-space: pre-wrap;">
+          <div style="color: #4ade80; margin-bottom: 4px; font-weight: bold;">⚡ Terminal Execution:</div>
+          ${escapeHtml(combinedOut)}
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; border-top: 1.5px solid #007032; padding-top: 6px;">
+          <span>Candidate: Soham Patne (XII-Science)</span>
+          <span>Teacher's Signature: __________________</span>
+          <span>Marks: [ / 10]</span>
+        </div>
+      `;
+      container.appendChild(sheet);
+    });
+  }
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// MODE SWITCHER LOGIC
+function switchMode(mode) {
+  document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.app-section').forEach(sec => sec.style.display = 'none');
+
+  if (mode === 'student') {
+    document.querySelector('.mode-btn:nth-child(1)').classList.add('active');
+    document.getElementById('studentApp').style.display = 'block';
+  } else if (mode === 'mom') {
+    document.querySelector('.mode-btn:nth-child(2)').classList.add('active');
+    document.getElementById('momApp').style.display = 'block';
+    renderMomApp();
+  } else if (mode === 'dad') {
+    document.querySelector('.mode-btn:nth-child(3)').classList.add('active');
+    document.getElementById('dadApp').style.display = 'block';
+    renderDadSlips();
+  }
+}
+
+// INIT ON LOAD
+window.onload = () => {
+  initNav();
+  selectExp(1);
+};
+</script>
+</body>
+</html>

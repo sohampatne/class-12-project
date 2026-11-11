@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Physics - Step-Down Transformer Modern Report</title>
+<style>
+  @page { size: A4 portrait; margin: 16mm 18mm; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1e293b; line-height: 1.5; font-size: 11pt; }
+  .title-page { min-height: 250mm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; page-break-after: always; padding: 20mm 0; }
+  .h1-navy { font-size: 22pt; font-weight: 800; color: #1e3a8a; margin-bottom: 4px; }
+  .sub-gray { font-size: 11pt; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .project-title { font-size: 20pt; font-weight: 800; color: #1e3a8a; margin: 20px 0 10px 0; }
+  .callout-box { background: #eff6ff; border-left: 4px solid #2563eb; padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0; }
+  .callout-title { font-size: 11pt; font-weight: bold; color: #1e3a8a; margin-bottom: 4px; }
+  h2 { font-size: 14pt; font-weight: 800; color: #1e3a8a; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 4px; margin-top: 20px; margin-bottom: 10px; }
+  p { margin-bottom: 10px; font-size: 10.5pt; text-align: justify; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 10pt; }
+  th, td { border: 1px solid #cbd5e1; padding: 7px 10px; text-align: left; }
+  th { background: #1e3a8a; color: #ffffff; font-weight: bold; text-align: center; }
+  .page-break { page-break-after: always; }
+  .diag-box { text-align: center; margin: 15px 0; }
+  .diag-box img { max-width: 85%; border: 1px solid #cbd5e1; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<div class="title-page">
+  <div>
+    <div class="h1-navy">LOKSEVA E-SCHOOL, PUNE</div>
+    <div class="sub-gray">Department of Physics &bull; Academic Session 2026–2027</div>
+  </div>
+
+  <div style="margin: 25px 0;">
+    <img src="../03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/lokseva_logo.jpeg" alt="Logo" style="height: 120px; object-fit: contain;">
+  </div>
+
+  <div>
+    <div style="font-size: 12pt; font-weight: bold; color: #2563eb; text-transform: uppercase; letter-spacing: 1px;">INVESTIGATORY PROJECT REPORT</div>
+    <div class="project-title">STUDY OF A STEP-DOWN ELECTRICAL TRANSFORMER</div>
+    <div style="font-size: 11pt; color: #475569; max-width: 140mm; margin: 0 auto;">An Experimental Investigation of Turns Ratio, Voltage Transformation, and Efficiency under Load</div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; border-top: 1.5px solid #cbd5e1; padding-top: 15px; font-size: 10.5pt; text-align: left;">
+    <div><strong>SUBMITTED BY:</strong><br>Soham Patne<br>Class XII Science (2026–2027)<br>Roll No: __________________</div>
+    <div style="text-align: right;"><strong>SUBMITTED TO:</strong><br>Department of Physics<br>Lokseva E-School, Pune<br>Affiliated to CBSE, New Delhi</div>
+  </div>
+</div>
+
+<h2>1. AIM & OBJECTIVES</h2>
+<p><strong>Aim:</strong> To design, assemble, and analyze the working of a Step-Down Electrical Transformer, verify the relationship between coil turns and voltages (Vs / Vp = Ns / Np), and calculate its efficiency under resistive load.</p>
+<p><strong>Objectives:</strong></p>
+<ul style="margin-left: 20px; margin-bottom: 12px; font-size: 10.5pt;">
+  <li>To study the fundamental principle of Mutual Induction between two coils.</li>
+  <li>To investigate the relationship between input AC voltage (Vp) and output AC voltage (Vs) with respect to turns (Np and Ns).</li>
+  <li>To determine transformation efficiency (η) under load.</li>
+  <li>To understand the four major power losses in transformers and how they are reduced in practice.</li>
+</ul>
+
+<h2>2. PRINCIPLE & WORKING THEORY</h2>
+<p>A transformer works on the principle of <strong>Mutual Induction</strong>. When alternating current flows through the primary winding, it establishes an alternating magnetic flux in the laminated soft-iron core. This flux links with the secondary coil, inducing an alternating EMF across its terminals according to Faraday’s Law: <code>e = - M &bull; (dI / dt)</code>.</p>
+
+<div class="callout-box">
+  <div class="callout-title">TRANSFORMATION RATIO FORMULA:</div>
+  <div><strong>Vs / Vp = Ns / Np = K</strong><br>
+  • For a Step-Down Transformer: Ns &lt; Np &rArr; K &lt; 1 and Vs &lt; Vp.<br>
+  • Conservation of Energy: Vp &bull; Ip = Vs &bull; Is &rArr; Is / Ip = 1 / K (Current steps up: Is &gt; Ip).</div>
+</div>
+
+<h2>3. CIRCUIT DIAGRAM</h2>
+<div class="diag-box">
+  <img src="../03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/transformer_circuit_diagram.png" alt="Circuit Diagram">
+  <div style="font-size: 9.5pt; color: #64748b; margin-top: 6px;">Figure 1: Schematic diagram of step-down transformer circuit with primary coil, E-I core, and secondary load meters.</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>4. OBSERVATIONS & CALCULATIONS</h2>
+<p>Primary Turns Np = 1000 &bull; Secondary Turns Ns = 100 &bull; Theoretical Turns Ratio K_theo = 100 / 1000 = 0.100</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 10%;">Obs.</th>
+      <th style="width: 18%;">Primary Vp (V)</th>
+      <th style="width: 18%;">Secondary Vs (V)</th>
+      <th style="width: 18%;">Primary Ip (A)</th>
+      <th style="width: 18%;">Secondary Is (A)</th>
+      <th style="width: 18%;">Ratio (Vs / Vp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align: center;">1</td><td style="text-align: center;">220.0</td><td style="text-align: center;">21.2</td><td style="text-align: center;">0.120</td><td style="text-align: center;">1.10</td><td style="text-align: center;">0.0964</td></tr>
+    <tr><td style="text-align: center;">2</td><td style="text-align: center;">200.0</td><td style="text-align: center;">19.3</td><td style="text-align: center;">0.110</td><td style="text-align: center;">1.00</td><td style="text-align: center;">0.0965</td></tr>
+    <tr><td style="text-align: center;">3</td><td style="text-align: center;">180.0</td><td style="text-align: center;">17.4</td><td style="text-align: center;">0.098</td><td style="text-align: center;">0.90</td><td style="text-align: center;">0.0967</td></tr>
+    <tr><td style="text-align: center;">4</td><td style="text-align: center;">160.0</td><td style="text-align: center;">15.5</td><td style="text-align: center;">0.088</td><td style="text-align: center;">0.80</td><td style="text-align: center;">0.0969</td></tr>
+    <tr><td style="text-align: center;">5</td><td style="text-align: center;">140.0</td><td style="text-align: center;">13.5</td><td style="text-align: center;">0.076</td><td style="text-align: center;">0.70</td><td style="text-align: center;">0.0964</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Mean Transformation Ratio:</strong> Vs / Vp = 0.0966 &approx; 0.097 (Deviation: 3.4% from ideal due to resistance and flux leakage).</p>
+<p><strong>Power & Efficiency (Reading 1):</strong></p>
+<ul style="margin-left: 20px; font-size: 10.5pt;">
+  <li>Input Power: Pin = Vp &bull; Ip = 220 V &times; 0.12 A = 26.40 W</li>
+  <li>Output Power: Pout = Vs &bull; Is = 21.2 V &times; 1.10 A = 23.32 W</li>
+  <li>Efficiency: &eta; = (Pout / Pin) &times; 100% = (23.32 / 26.40) &times; 100% = <strong>88.33%</strong> (Average practical efficiency: 88.1%).</li>
+</ul>
+
+<h2>5. ENERGY LOSSES & MITIGATION</h2>
+<p>1. <strong>Copper Loss (I²R):</strong> Heat in windings; minimized by using thick copper wire on secondary.<br>
+2. <strong>Eddy Current Loss:</strong> Induced swirling currents in iron; minimized by using thin, varnished silicon-steel laminations.<br>
+3. <strong>Hysteresis Loss:</strong> Magnetic reversal energy; minimized by using high-permeability soft iron.<br>
+4. <strong>Flux Leakage:</strong> Incomplete coupling; minimized by winding secondary directly over primary.</p>
+
+<h2>6. CONCLUSION</h2>
+<p>The step-down transformer model successfully verified the voltage-to-turns relation (Vs / Vp &approx; Ns / Np). The circuit stepped down 220 V AC to approximately 21.2 V AC with a measured operating efficiency of 88.1% under load.</p>
+
+<div style="margin-top: 30px; font-size: 10pt; color: #64748b; border-top: 1px solid #cbd5e1; padding-top: 10px;">
+  <strong>Bibliography:</strong> NCERT Physics Class XII (Part I), CBSE Practical Manual, Concepts of Physics by Dr. H.C. Verma.
+</div>
+
+</body>
+</html>

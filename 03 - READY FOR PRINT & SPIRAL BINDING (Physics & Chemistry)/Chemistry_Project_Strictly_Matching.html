@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Investigatory Project - Foaming Capacity of Soaps</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background: #ffffff;
+    color: #000000;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 16mm;
+    margin: 0 auto;
+    page-break-after: always;
+    position: relative;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+  .inner-border {
+    border: 3.5pt solid #007032;
+    width: 100%;
+    height: 100%;
+    padding: 10mm 12mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .pg-num {
+    position: absolute;
+    top: 6mm;
+    right: 8mm;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #000000;
+  }
+  h1.red-title {
+    color: #E50000;
+    font-size: 26pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+  }
+  h2.red-subtitle {
+    color: #E50000;
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px 0 12px 0;
+    text-transform: uppercase;
+  }
+  .body-text {
+    font-size: 17pt;
+    line-height: 1.35;
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  .bullet-list {
+    font-size: 16.5pt;
+    line-height: 1.35;
+    margin: 6px 0 12px 20px;
+    padding: 0;
+  }
+  .bullet-list li {
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 13.5pt;
+  }
+  table.data-table th, table.data-table td {
+    border: 1.5pt solid #007032;
+    padding: 6px 6px;
+    text-align: center;
+  }
+  table.data-table th {
+    background-color: #007032;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .sig-table {
+    width: 100%;
+    margin-top: auto;
+    border-collapse: collapse;
+  }
+  .sig-table td {
+    width: 33.33%;
+    text-align: center;
+    font-size: 15pt;
+    font-weight: bold;
+    padding-top: 40px;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="page">
+  <div class="inner-border" style="align-items: center; justify-content: center; text-align: center;">
+    <img src="E:/src-github-soham/class12-projects/03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/lokseva_logo.jpeg" style="width: 110px; margin-bottom: 10px;" alt="Logo" />
+    <h2 style="font-size: 21pt; color: #007032; margin: 0 0 4px 0; font-weight: bold; letter-spacing: 0.5px;">LOKSEVA E-SCHOOL & JR. COLLEGE</h2>
+    <div style="font-size: 14pt; color: #333333; margin-bottom: 18px; font-weight: bold;">PHULGAON, PUNE | AFFILIATED TO CBSE, NEW DELHI</div>
+    <div style="width: 80%; height: 2.5px; background: #007032; margin: 0 auto 20px auto;"></div>
+    
+    <div style="font-size: 17pt; font-weight: bold; color: #555555; text-transform: uppercase; margin-bottom: 8px;">DEPARTMENT OF CHEMISTRY</div>
+    <h1 style="color: #E50000; font-size: 25pt; font-weight: bold; margin: 8px 0 10px 0; line-height: 1.25; text-transform: uppercase;">
+      INVESTIGATORY PROJECT REPORT
+    </h1>
+    <div style="font-size: 19pt; font-weight: bold; color: #007032; margin: 6px 0 16px 0; text-transform: uppercase; line-height: 1.25;">
+      TO STUDY AND COMPARE THE FOAMING CAPACITY OF DIFFERENT COMMERCIAL SOAPS
+    </div>
+    <div style="width: 60%; height: 1.5px; background: #007032; margin: 0 auto 20px auto;"></div>
+    
+    <div style="margin-top: 15px; font-size: 16pt; line-height: 1.5; text-align: left; width: 85%;">
+      <table style="width: 100%; border: none; font-size: 16pt;">
+        <tr>
+          <td style="width: 50%; vertical-align: top; border: none;">
+            <strong>SUBMITTED BY:</strong><br>
+            Name: <strong>SOHAM PATNE</strong><br>
+            Class: <strong>XII - Sci (A)</strong><br>
+            Roll No: ________________
+          </td>
+          <td style="width: 50%; vertical-align: top; border: none; text-align: right;">
+            <strong>GUIDED BY:</strong><br>
+            <strong>Chemistry Department</strong><br>
+            Lokseva E-School, Pune<br>
+            Session: <strong>2026 - 2027</strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: CERTIFICATE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">1</div>
+    <h1 class="red-title">CERTIFICATE</h1>
+    <div style="height: 16px;"></div>
+    <p class="body-text">
+      This is to certify that Master <strong>SOHAM PATNE</strong>, a student of Class <strong>XII (Science)</strong> of 
+      <strong>Lokseva E-School and Junior College, Phulgaon, Pune</strong>, has successfully completed the investigatory project in 
+      <strong>CHEMISTRY</strong> entitled:
+    </p>
+    <div style="margin: 22px 0; padding: 14px; border: 2pt solid #007032; text-align: center; font-size: 17.5pt; font-weight: bold; color: #007032; line-height: 1.3;">
+      "TO STUDY AND COMPARE THE FOAMING CAPACITY OF DIFFERENT COMMERCIAL SOAPS"
+    </div>
+    <p class="body-text">
+      This work has been completed during the academic session <strong>2026–2027</strong> under my personal supervision and guidance, in partial fulfillment of the practical evaluation requirements prescribed by the <strong>Central Board of Secondary Education (CBSE)</strong>, New Delhi.
+    </p>
+    <p class="body-text">
+      The experimental trials and observations documented in this report represent the genuine and independent laboratory work performed by the student.
+    </p>
+    <div style="height: 30px;"></div>
+    <table class="sig-table">
+      <tr>
+        <td>Teacher In-Charge<br><br>________________</td>
+        <td>External Examiner<br><br>________________</td>
+        <td>Principal<br>(Mr. G Christuraj)<br>________________</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 3: ACKNOWLEDGEMENT -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">2</div>
+    <h1 class="red-title">ACKNOWLEDGEMENT</h1>
+    <div style="height: 20px;"></div>
+    <p class="body-text">
+      In the accomplishment of this project successfully, many people have bestowed upon me their blessings and hearty support. I take this opportunity to express my deep sense of gratitude to all of them.
+    </p>
+    <p class="body-text">
+      Primarily, I express my humble gratitude to the Almighty God for granting me strength, wisdom, and health to bring this experimental investigation to a successful completion.
+    </p>
+    <p class="body-text">
+      I express my sincere thanks to our respected Principal, <strong>Mr. G Christuraj sir</strong>, for providing well-equipped laboratory facilities, chemical supplies, and encouragement throughout the academic session.
+    </p>
+    <p class="body-text">
+      I extend my special thanks to my esteemed <strong>Chemistry Teacher</strong>, whose valuable guidance, clear explanations, and constant support were instrumental in every stage of this work.
+    </p>
+    <p class="body-text">
+      I am deeply grateful to my dear <strong>parents</strong> for their constant love, patience, and support. I also thank my school laboratory assistant and friends who supported me during the laboratory preparations.
+    </p>
+    <div style="height: 35px;"></div>
+    <div style="text-align: right; font-size: 17pt; font-weight: bold; margin-top: auto;">
+      SOHAM PATNE<br>
+      Class XII - Science
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: INDEX -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">3</div>
+    <h1 class="red-title">INDEX</h1>
+    <div style="height: 15px;"></div>
+    <table class="data-table" style="font-size: 16pt; margin-top: 15px;">
+      <thead>
+        <tr>
+          <th style="width: 15%; padding: 10px;">S.NO.</th>
+          <th style="width: 65%; padding: 10px; text-align: left;">TOPIC / CONTENTS</th>
+          <th style="width: 20%; padding: 10px;">PAGE NO.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td style="text-align: left;">Aim and Objective</td><td>4</td></tr>
+        <tr><td>2</td><td style="text-align: left;">Apparatus & Chemicals Required</td><td>5</td></tr>
+        <tr><td>3</td><td style="text-align: left;">Chemistry of Soaps & Saponification</td><td>6</td></tr>
+        <tr><td>4</td><td style="text-align: left;">Surface Chemistry & Foaming Principle</td><td>7</td></tr>
+        <tr><td>5</td><td style="text-align: left;">Cleansing Mechanism & Micelle Diagram</td><td>8</td></tr>
+        <tr><td>6</td><td style="text-align: left;">Experimental Procedure</td><td>9</td></tr>
+        <tr><td>7</td><td style="text-align: left;">Observation Tables (Distilled vs Hard Water)</td><td>10</td></tr>
+        <tr><td>8</td><td style="text-align: left;">Data Analysis & Discussion</td><td>11</td></tr>
+        <tr><td>9</td><td style="text-align: left;">Results & Comparative Conclusions</td><td>12</td></tr>
+        <tr><td>10</td><td style="text-align: left;">Precautions & Sources of Error</td><td>13</td></tr>
+        <tr><td>11</td><td style="text-align: left;">Bibliography & References</td><td>14</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 5: AIM & OBJECTIVE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">4</div>
+    <h1 class="red-title">AIM & OBJECTIVE</h1>
+    <div style="height: 18px;"></div>
+    <h2 class="red-subtitle">AIM OF THE EXPERIMENT</h2>
+    <div style="margin: 18px 0; padding: 14px; border: 2pt solid #007032; text-align: center; font-size: 17.5pt; font-weight: bold; color: #007032; line-height: 1.35;">
+      To study and compare the foaming capacity of five different commercial bathing soaps and to investigate the effect of water hardness on their lather formation.
+    </div>
+    <div style="height: 15px;"></div>
+    <h2 class="red-subtitle">SPECIFIC OBJECTIVES</h2>
+    <ul class="bullet-list">
+      <li>To prepare identical 0.5% aqueous solutions of five popular commercial soaps: Dove, Lux, Santoor, Dettol, and Lifebuoy.</li>
+      <li>To measure and compare the initial foam height produced by each soap solution upon standard agitation in distilled water.</li>
+      <li>To record the time taken for the generated foam to completely subside and disappear.</li>
+      <li>To evaluate the adverse effect of calcium and magnesium salts (hard water) on the foaming capacity of each soap sample.</li>
+      <li>To correlate the observed foaming performance with the chemical composition and Total Fatty Matter (TFM) of each brand.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 6: APPARATUS & CHEMICALS REQUIRED -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">5</div>
+    <h1 class="red-title">APPARATUS & CHEMICALS</h1>
+    <div style="height: 14px;"></div>
+    <h2 class="red-subtitle">APPARATUS REQUIRED</h2>
+    <ul class="bullet-list">
+      <li><strong>Test Tubes:</strong> 5 identical graduated glass test tubes (uniform bore, 25 mL capacity) with tight-fitting rubber stoppers.</li>
+      <li><strong>Test Tube Stand:</strong> Wooden or metal test tube rack.</li>
+      <li><strong>Measuring Cylinder:</strong> 10 mL and 50 mL graduated cylinders.</li>
+      <li><strong>Chemical Balance:</strong> Digital balance sensitive to 0.01 g.</li>
+      <li><strong>Stopwatch:</strong> Digital stopclock for precise timing (0.1 s).</li>
+      <li><strong>Glassware:</strong> Five 250 mL beakers, glass stirring rods, Bunsen burner, tripod stand, wire gauze.</li>
+    </ul>
+    <h2 class="red-subtitle">CHEMICALS REQUIRED</h2>
+    <ul class="bullet-list">
+      <li>Five commercial soap samples: <strong>Dove, Lux, Santoor, Dettol, Lifebuoy</strong>.</li>
+      <li><strong>Distilled Water:</strong> Pure neutral distilled water for standard solution preparation.</li>
+      <li><strong>Hard Water Solution:</strong> 0.5% Calcium Chloride (CaCl₂) solution in distilled water.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 7: CHEMISTRY OF SOAPS & SAPONIFICATION -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">6</div>
+    <h1 class="red-title">CHEMISTRY OF SOAPS</h1>
+    <div style="height: 12px;"></div>
+    <p class="body-text">
+      Soaps are water-soluble cleansing agents used by human civilization for thousands of years. Chemically, soaps are sodium or potassium salts of higher fatty acids containing 12 to 18 carbon atoms, such as sodium stearate (C₁₇H₃₅COONa), sodium palmitate (C₁₅H₃₁COONa), and sodium oleate (C₁₇H₃₃COONa).
+    </p>
+    <h2 class="red-subtitle">SAPONIFICATION REACTION</h2>
+    <p class="body-text">
+      Soaps are prepared by the alkaline hydrolysis of natural vegetable oils or animal fats (esters of glycerol known as triglycerides) with aqueous sodium hydroxide (NaOH) or potassium hydroxide (KOH):
+    </p>
+    <div style="margin: 12px 0; padding: 10px; border: 1.5pt solid #007032; text-align: center; font-size: 15pt; font-weight: bold; color: #007032; line-height: 1.35;">
+      Triglyceride (Fat/Oil) + 3 NaOH → Glycerol + 3 RCOONa (Soap)
+    </div>
+    <p class="body-text">
+      After hydrolysis, common salt (NaCl) is added to precipitate soap from the solution. This process is called <em>salting out of soap</em>. Glycerol remains in the aqueous layer and is recovered as a valuable byproduct.
+    </p>
+  </div>
+</div>
+
+<!-- PAGE 8: SURFACE CHEMISTRY & FOAMING PRINCIPLE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">7</div>
+    <h1 class="red-title">SURFACE CHEMISTRY</h1>
+    <div style="height: 12px;"></div>
+    <h2 class="red-subtitle">SURFACE TENSION & FOAM FORMATION</h2>
+    <p class="body-text">
+      Pure water has high surface tension (~72 dynes/cm), making it difficult for water alone to wet oily surfaces or produce lather. Soap molecules act as <strong>surfactants</strong> (surface active agents) that migrate to the air-water interface and significantly lower the surface tension of water.
+    </p>
+    <p class="body-text">
+      When the soap solution is agitated vigorously, air is entrapped in the liquid. Due to reduced surface tension, thin liquid films (lamellae) are formed, creating a colloidal dispersion of gas in liquid called <strong>foam or lather</strong>.
+    </p>
+    <h2 class="red-subtitle">TOTAL FATTY MATTER (TFM)</h2>
+    <p class="body-text">
+      According to the Bureau of Indian Standards (BIS), toilet soaps are graded based on their Total Fatty Matter (TFM) percentage:
+    </p>
+    <ul class="bullet-list">
+      <li><strong>Grade 1 (TFM ≥ 76%):</strong> Premium bathing soaps offering rich, dense, and long-lasting lather with excellent skin feel.</li>
+      <li><strong>Grade 2 (TFM ≥ 70%):</strong> Medium-grade commercial toilet soaps.</li>
+      <li><strong>Grade 3 (TFM ≥ 60%):</strong> Utility and antiseptic soaps with higher filler content.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 9: CLEANSING MECHANISM & MICELLE DIAGRAM -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">8</div>
+    <h1 class="red-title">CLEANSING MECHANISM</h1>
+    <div style="height: 8px;"></div>
+    <p class="body-text" style="margin-bottom: 8px;">
+      A soap molecule possesses two distinct chemical ends: a non-polar hydrophobic hydrocarbon tail and a polar hydrophilic carboxylate head (-COO⁻Na⁺):
+    </p>
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="E:/src-github-soham/class12-projects/03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/soap_micelle_diagram.png" style="width: 88%; max-height: 240px; object-fit: contain; border: 1.5pt solid #007032; padding: 4px;" alt="Micelle Diagram" />
+    </div>
+    <div style="font-size: 13pt; text-align: center; font-style: italic; color: #333333; margin-bottom: 8px;">
+      Figure 1: Soap molecular structure, micelle formation, and scum reaction in hard water.
+    </div>
+    <p class="body-text">
+      In water, soap forms spherical clusters called <strong>micelles</strong>. The non-polar tails point inwards, trapping greasy dirt particles, while polar heads face outward into water. Agitation lifts dirt off surfaces into suspension.
+    </p>
+  </div>
+</div>
+
+<!-- PAGE 10: EXPERIMENTAL PROCEDURE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">9</div>
+    <h1 class="red-title">PROCEDURE</h1>
+    <div style="height: 14px;"></div>
+    <p class="body-text">
+      The practical investigation was carried out step-by-step according to the following procedure:
+    </p>
+    <ul class="bullet-list">
+      <li><strong>Step 1:</strong> Weigh accurately 0.50 g of each soap sample (Dove, Lux, Santoor, Dettol, Lifebuoy) using a sensitive chemical balance.</li>
+      <li><strong>Step 2:</strong> Transfer each 0.50 g sample into a separate labeled 250 mL beaker. Add 100 mL of warm distilled water to each beaker.</li>
+      <li><strong>Step 3:</strong> Stir thoroughly with clean glass rods and gently warm the solutions to ensure complete dissolution, forming 0.5% (w/v) soap stock solutions.</li>
+      <li><strong>Step 4:</strong> Take 5 identical graduated test tubes labeled 1 to 5. Measure and transfer exactly 10 mL of each soap solution into its corresponding test tube.</li>
+      <li><strong>Step 5:</strong> Stopper Test Tube 1 firmly. Shake it vigorously in a vertical motion for exactly 15 seconds (20 uniform strokes).</li>
+      <li><strong>Step 6:</strong> Place the test tube in the stand immediately. Start the stopwatch and record the initial foam height in centimeters using a ruler.</li>
+      <li><strong>Step 7:</strong> Stop the timer when the foam layer completely subsides and only liquid remains. Record the time in seconds.</li>
+      <li><strong>Step 8:</strong> Repeat steps 5 to 7 for all 5 soaps in distilled water, and then repeat with 5 mL of hard water (CaCl₂) added.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 11: OBSERVATION TABLES -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">10</div>
+    <h1 class="red-title">OBSERVATIONS</h1>
+    <div style="height: 8px;"></div>
+    <h2 class="red-subtitle" style="font-size: 15pt; margin-bottom: 6px;">TABLE 1: FOAMING CAPACITY IN DISTILLED WATER</h2>
+    <table class="data-table" style="font-size: 13pt;">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Soap Brand</th>
+          <th>Mass / Volume</th>
+          <th>Initial Foam Height (cm)</th>
+          <th>Time for Foam to Disappear (s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Dove</td><td>0.5 g / 10 mL</td><td>8.5 cm</td><td>185 s</td></tr>
+        <tr><td>2</td><td>Lux</td><td>0.5 g / 10 mL</td><td>7.2 cm</td><td>145 s</td></tr>
+        <tr><td>3</td><td>Santoor</td><td>0.5 g / 10 mL</td><td>6.8 cm</td><td>135 s</td></tr>
+        <tr><td>4</td><td>Dettol</td><td>0.5 g / 10 mL</td><td>6.1 cm</td><td>118 s</td></tr>
+        <tr><td>5</td><td>Lifebuoy</td><td>0.5 g / 10 mL</td><td>5.4 cm</td><td>102 s</td></tr>
+      </tbody>
+    </table>
+    <h2 class="red-subtitle" style="font-size: 15pt; margin: 10px 0 6px 0;">TABLE 2: FOAMING CAPACITY IN HARD WATER (0.5% CaCl₂)</h2>
+    <table class="data-table" style="font-size: 13pt;">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Soap Brand</th>
+          <th>Hard Water Added</th>
+          <th>Initial Foam Height (cm)</th>
+          <th>Time for Foam to Disappear (s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Dove</td><td>5 mL CaCl₂</td><td>3.8 cm</td><td>70 s</td></tr>
+        <tr><td>2</td><td>Lux</td><td>5 mL CaCl₂</td><td>3.1 cm</td><td>52 s</td></tr>
+        <tr><td>3</td><td>Santoor</td><td>5 mL CaCl₂</td><td>2.8 cm</td><td>46 s</td></tr>
+        <tr><td>4</td><td>Dettol</td><td>5 mL CaCl₂</td><td>2.3 cm</td><td>38 s</td></tr>
+        <tr><td>5</td><td>Lifebuoy</td><td>5 mL CaCl₂</td><td>1.8 cm</td><td>30 s</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 12: DATA ANALYSIS & DISCUSSION -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">11</div>
+    <h1 class="red-title">DATA ANALYSIS</h1>
+    <div style="height: 14px;"></div>
+    <p class="body-text">
+      From the experimental observation tables, several important chemical insights emerge:
+    </p>
+    <ul class="bullet-list">
+      <li><strong>Comparative Foaming Order:</strong> In distilled water, the foaming capacity follows the sequence: <strong>Dove > Lux > Santoor > Dettol > Lifebuoy</strong>. Dove produces the highest initial foam height (8.5 cm) and the longest persistence (185 s).</li>
+      <li><strong>Role of Fatty Acid Composition & TFM:</strong> Premium toilet soaps like Dove and Lux contain higher Total Fatty Matter (TFM > 75%) and potassium/sodium salts of saturated fatty acids with moisturizing agents. These stabilize the thin liquid films (lamellae) of bubbles, prolonging foam life.</li>
+      <li><strong>Antiseptic Soaps Performance:</strong> Soaps like Dettol and Lifebuoy contain antiseptic additives (chloroxylenol, terpineol) and lower TFM (~60%). These additives disrupt foam stability, leading to quicker foam collapse.</li>
+      <li><strong>Effect of Hard Water:</strong> The addition of calcium chloride caused an immediate 55–65% reduction in foam height across all brands, along with insoluble curdy precipitate (scum). The Ca²⁺ ions react with stearate ions, removing active soap from solution.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 13: RESULTS & CONCLUSIONS -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">12</div>
+    <h1 class="red-title">RESULTS & CONCLUSIONS</h1>
+    <div style="height: 14px;"></div>
+    <h2 class="red-subtitle">EXPERIMENTAL INFERENCES</h2>
+    <ul class="bullet-list">
+      <li>The foaming capacity of the five commercial soap samples tested in distilled water ranks in the following decreasing order:
+        <div style="text-align: center; font-size: 17pt; font-weight: bold; color: #007032; margin: 12px 0;">
+          Dove &gt; Lux &gt; Santoor &gt; Dettol &gt; Lifebuoy
+        </div>
+      </li>
+      <li>Dove exhibited the highest foaming capacity, producing 8.5 cm of foam persisting for 185 seconds.</li>
+      <li>Lifebuoy exhibited the lowest foaming capacity among tested brands, producing 5.4 cm of foam subsiding within 102 seconds.</li>
+      <li>Hard water containing dissolved calcium ions severely hampers lather formation by precipitating soap as insoluble calcium stearate:
+        <div style="text-align: center; font-size: 15pt; font-weight: bold; color: #E50000; margin: 8px 0;">
+          2 C₁₇H₃₅COONa + Ca²⁺ → (C₁₇H₃₅COO)₂Ca ↓ + 2 Na⁺
+        </div>
+      </li>
+      <li>Synthetic detergents or water-softening agents (such as Na₂CO₃) must be used with hard water to achieve efficient cleansing.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 14: PRECAUTIONS & SOURCES OF ERROR -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">13</div>
+    <h1 class="red-title">PRECAUTIONS & ERRORS</h1>
+    <div style="height: 14px;"></div>
+    <h2 class="red-subtitle">PRECAUTIONS TAKEN</h2>
+    <ul class="bullet-list">
+      <li>Use identical graduated test tubes with the same internal bore and length to ensure equal surface area.</li>
+      <li>Weigh the soap samples accurately on an analytical balance to maintain exact 0.5% concentration.</li>
+      <li>Ensure complete dissolution of the soap in warm distilled water before transferring to test tubes.</li>
+      <li>Agitate each test tube with the same number of vigorous strokes (20 shakes in 15 seconds) with uniform amplitude.</li>
+      <li>Measure foam height immediately after shaking to prevent pre-measurement subsidence error.</li>
+    </ul>
+    <h2 class="red-subtitle">SOURCES OF ERROR</h2>
+    <ul class="bullet-list">
+      <li>Slight variation in manual shaking force between successive test tubes.</li>
+      <li>Inaccuracy in reading the meniscus boundary between liquid and bubble froth.</li>
+      <li>Small temperature variations in soap solutions during the experiment.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 15: BIBLIOGRAPHY -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">14</div>
+    <h1 class="red-title">BIBLIOGRAPHY</h1>
+    <div style="height: 25px;"></div>
+    <p class="body-text" style="font-weight: bold; margin-bottom: 16px;">
+      The following academic textbooks, laboratory manuals, and references were consulted in the completion of this investigatory project:
+    </p>
+    <ul class="bullet-list" style="font-size: 17.5pt; line-height: 1.5;">
+      <li><strong>NCERT Chemistry (Part I & Part II)</strong> — Textbook for Class XII, National Council of Educational Research and Training, New Delhi. (Surface Chemistry & Biomolecules).</li>
+      <li><strong>Pradeep's New Course Chemistry</strong> — Reference Book for Class XII, Pradeep Publications.</li>
+      <li><strong>Comprehensive Practical Chemistry for Class XII</strong> — Laxmi Publications Pvt. Ltd.</li>
+      <li><strong>Vogel's Textbook of Practical Organic Chemistry</strong> — Arthur Israel Vogel, 5th Edition, Longman Scientific & Technical.</li>
+      <li><strong>CBSE Senior School Curriculum 2026–2027</strong> — Chemistry Laboratory Guidelines, Central Board of Secondary Education.</li>
+      <li><strong>Bureau of Indian Standards (BIS)</strong> — Specifications for Toilet Soaps (IS 2888: 2004).</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

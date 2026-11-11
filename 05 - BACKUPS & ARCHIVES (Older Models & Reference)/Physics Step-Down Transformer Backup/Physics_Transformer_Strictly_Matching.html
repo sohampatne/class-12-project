@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Physics Investigatory Project - Step-Down Transformer</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background: #ffffff;
+    color: #000000;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 16mm;
+    margin: 0 auto;
+    page-break-after: always;
+    position: relative;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+  .inner-border {
+    border: 3.5pt solid #007032;
+    width: 100%;
+    height: 100%;
+    padding: 10mm 12mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .pg-num {
+    position: absolute;
+    top: 6mm;
+    right: 8mm;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #000000;
+  }
+  h1.red-title {
+    color: #E50000;
+    font-size: 27pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+  }
+  h2.red-subtitle {
+    color: #E50000;
+    font-size: 19pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px 0 14px 0;
+    text-transform: uppercase;
+  }
+  .body-text {
+    font-size: 17pt;
+    line-height: 1.35;
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  .bullet-list {
+    font-size: 16.5pt;
+    line-height: 1.35;
+    margin: 6px 0 12px 20px;
+    padding: 0;
+  }
+  .bullet-list li {
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 14pt;
+  }
+  table.data-table th, table.data-table td {
+    border: 1.5pt solid #007032;
+    padding: 6px 8px;
+    text-align: center;
+  }
+  table.data-table th {
+    background-color: #007032;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  table.index-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15.5pt;
+  }
+  table.index-table th, table.index-table td {
+    border: 1.5pt solid #007032;
+    padding: 7px 10px;
+  }
+  table.index-table th {
+    background-color: #007032;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+  }
+  .formula-box {
+    border: 2pt solid #007032;
+    background-color: #f0fdf4;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 16.5pt;
+    text-align: center;
+    font-weight: bold;
+  }
+  .diagram-container {
+    text-align: center;
+    margin: 10px 0;
+  }
+  .diagram-container img {
+    max-width: 95%;
+    max-height: 175mm;
+    border: 1.5pt solid #007032;
+    border-radius: 4px;
+  }
+  .cert-sign-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-bottom: 8mm;
+    width: 100%;
+  }
+  .cert-sign-col {
+    text-align: center;
+    width: 30%;
+  }
+  .sign-line {
+    border-top: 1.5pt solid #000000;
+    margin-bottom: 4px;
+  }
+  .sign-label {
+    font-size: 15pt;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: TITLE / COVER -->
+<div class="page">
+  <div class="inner-border" style="align-items: center; justify-content: space-between; text-align: center;">
+    <div>
+      <div style="font-size: 21pt; font-weight: bold; color: #007032; letter-spacing: 0.5px; margin-top: 5mm;">
+        LOKSEVA E-SCHOOL, PUNE
+      </div>
+      <div style="font-size: 14pt; font-style: italic; color: #475569; margin-top: 2mm;">
+        Affiliated to CBSE, New Delhi &bull; Academic Session: 2026 – 2027
+      </div>
+    </div>
+
+    <div style="margin: 4mm 0;">
+      <img src="lokseva_logo.jpeg" alt="School Logo" style="height: 120px; object-fit: contain;">
+    </div>
+
+    <div>
+      <div style="font-size: 15pt; font-weight: bold; color: #c21807; letter-spacing: 1px; text-transform: uppercase;">
+        PHYSICS INVESTIGATORY PROJECT REPORT
+      </div>
+      <h1 class="red-title" style="font-size: 22pt; margin-top: 4mm;">
+        STUDY OF A STEP-DOWN ELECTRICAL TRANSFORMER
+      </h1>
+      <div style="font-size: 14pt; color: #334155; margin-top: 2mm; max-width: 160mm; margin-left: auto; margin-right: auto; line-height: 1.3;">
+        An Investigatory Project to Study the Turns Ratio, Input and Output Voltage Relationship, and Efficiency of a Step-Down Transformer
+      </div>
+    </div>
+
+    <div style="width: 100%; display: flex; justify-content: space-between; font-size: 15pt; text-align: left; margin-bottom: 4mm; border-top: 1.5pt solid #007032; padding-top: 5mm;">
+      <div style="line-height: 1.4;">
+        <strong>SUBMITTED BY:</strong><br>
+        Name: <strong>SOHAM PATNE</strong><br>
+        Class: XIIth Science<br>
+        Roll No: __________________<br>
+        School: Lokseva E-School, Pune
+      </div>
+      <div style="text-align: right; line-height: 1.4;">
+        <strong>SUBMITTED TO:</strong><br>
+        Department of Physics<br>
+        Lokseva E-School<br>
+        Pune, Maharashtra
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: CERTIFICATE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">2</div>
+    <div style="text-align: center; margin-top: 4mm;">
+      <div style="font-size: 20pt; font-weight: bold; color: #007032;">LOKSEVA E-SCHOOL, PUNE</div>
+      <div style="font-size: 14pt; font-weight: bold; color: #475569;">DEPARTMENT OF PHYSICS</div>
+    </div>
+    <h1 class="red-title" style="margin-top: 8mm; margin-bottom: 8mm;">CERTIFICATE</h1>
+    <div class="body-text" style="line-height: 1.5; font-size: 17.5pt;">
+      This is to certify that Master <strong>SOHAM PATNE</strong>, a student of Class XII Science, Lokseva E-School, Pune, has successfully completed the investigatory project in Physics titled:
+    </div>
+    <div class="formula-box" style="font-size: 17.5pt; color: #c21807; margin: 6mm 0; border-color: #c21807; background-color: #fef2f2;">
+      "TO STUDY THE RELATION BETWEEN INPUT AND OUTPUT VOLTAGE AND NUMBER OF TURNS IN A STEP-DOWN TRANSFORMER"
+    </div>
+    <div class="body-text" style="line-height: 1.5; font-size: 17.5pt;">
+      under the guidance of the Physics Teacher during the academic year 2026–2027 in partial fulfillment of the CBSE Class XII Physics Practical Examination.
+    </div>
+    <div class="body-text" style="line-height: 1.5; font-size: 17.5pt;">
+      The project demonstrates genuine laboratory work and fulfills all curriculum guidelines set by the Central Board of Secondary Education (CBSE), New Delhi.
+    </div>
+    
+    <div class="cert-sign-grid">
+      <div class="cert-sign-col">
+        <div class="sign-line"></div>
+        <div class="sign-label">Teacher In-Charge</div>
+      </div>
+      <div class="cert-sign-col">
+        <div class="sign-line"></div>
+        <div class="sign-label">External Examiner</div>
+      </div>
+      <div class="cert-sign-col">
+        <div class="sign-line"></div>
+        <div class="sign-label">Principal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: ACKNOWLEDGEMENT -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">3</div>
+    <h1 class="red-title" style="margin-top: 6mm; margin-bottom: 8mm;">ACKNOWLEDGEMENT</h1>
+    <div class="body-text">
+      I would like to express my sincere gratitude to our respected <strong>Principal</strong> for providing the laboratory facilities and encouragement needed to complete this project at <strong>Lokseva E-School, Pune</strong>.
+    </div>
+    <div class="body-text">
+      I am deeply grateful to my <strong>Physics Teacher</strong>, whose continuous guidance, clear explanations, and valuable advice helped me build the working model, take proper readings, and complete this report successfully.
+    </div>
+    <div class="body-text">
+      I also thank our school laboratory assistant for helping with the multimeters, wires, and testing setup during practical hours.
+    </div>
+    <div class="body-text">
+      Finally, I express my heartfelt thanks to my parents and classmates for their constant encouragement and support throughout this work.
+    </div>
+    <div style="margin-top: auto; margin-bottom: 8mm; text-align: right; font-size: 17.5pt;">
+      <strong>Soham Patne</strong><br>
+      Class XII Science<br>
+      Lokseva E-School, Pune
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: INDEX -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">4</div>
+    <h1 class="red-title" style="margin-top: 4mm; margin-bottom: 4mm;">INDEX</h1>
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Sr. No.</th>
+          <th style="width: 70%; text-align: left; padding-left: 12px;">Content / Topic</th>
+          <th style="width: 16%;">Page No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="text-align: center;">1</td><td>Acknowledgement</td><td style="text-align: center;">3</td></tr>
+        <tr><td style="text-align: center;">2</td><td>Aim and Project Objectives</td><td style="text-align: center;">5</td></tr>
+        <tr><td style="text-align: center;">3</td><td>Introduction to Transformers</td><td style="text-align: center;">5</td></tr>
+        <tr><td style="text-align: center;">4</td><td>Working Principle: Mutual Induction</td><td style="text-align: center;">6</td></tr>
+        <tr><td style="text-align: center;">5</td><td>Mathematical Derivation and Turns Ratio</td><td style="text-align: center;">7</td></tr>
+        <tr><td style="text-align: center;">6</td><td>Materials and Components Required</td><td style="text-align: center;">8</td></tr>
+        <tr><td style="text-align: center;">7</td><td>Circuit and Construction Diagram</td><td style="text-align: center;">9</td></tr>
+        <tr><td style="text-align: center;">8</td><td>Step-by-Step Construction Procedure</td><td style="text-align: center;">10</td></tr>
+        <tr><td style="text-align: center;">9</td><td>Observation Table</td><td style="text-align: center;">11</td></tr>
+        <tr><td style="text-align: center;">10</td><td>Calculations and Efficiency Determination</td><td style="text-align: center;">12</td></tr>
+        <tr><td style="text-align: center;">11</td><td>Energy Losses and How to Minimize Them</td><td style="text-align: center;">13</td></tr>
+        <tr><td style="text-align: center;">12</td><td>Precautions, Sources of Error & Bibliography</td><td style="text-align: center;">14–15</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 5: AIM & INTRODUCTION -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">5</div>
+    <h1 class="red-title">AIM & INTRODUCTION</h1>
+    <h2 class="red-subtitle">1. AIM OF THE INVESTIGATION</h2>
+    <div class="body-text">
+      To assemble and study the working of a Step-Down Electrical Transformer, verify the relationship between coil turns and voltages (Vs / Vp = Ns / Np), and calculate its efficiency under resistive load.
+    </div>
+
+    <h2 class="red-subtitle" style="margin-top: 6mm;">2. PROJECT OBJECTIVES</h2>
+    <ul class="bullet-list">
+      <li>To study the principle of Mutual Induction between two inductively coupled coils.</li>
+      <li>To verify the turns-to-voltage relationship for primary and secondary windings.</li>
+      <li>To measure input power and output power, and calculate the operating efficiency.</li>
+      <li>To examine the four major power losses in transformers and how they are reduced in practice.</li>
+    </ul>
+
+    <h2 class="red-subtitle" style="margin-top: 6mm;">3. INTRODUCTION</h2>
+    <div class="body-text">
+      Almost all electricity in our homes and industries is supplied as alternating current (AC). One major advantage of AC over DC is that AC voltage can be stepped up or stepped down easily using a transformer.
+    </div>
+    <div class="body-text">
+      Power stations generate electricity and step it up to very high voltages (like 132 kV or 400 kV) so that the current is reduced, which minimizes I²R heat losses during long-distance transmission. When the electricity reaches cities and houses, substations step it down to 220 V. Devices like mobile chargers, computer adapters, and laboratory battery eliminators use step-down transformers to bring 220 V down to safe working levels such as 12 V or 5 V.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6: PRINCIPLE & WORKING THEORY -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">6</div>
+    <h1 class="red-title">PRINCIPLE & THEORY</h1>
+    <h2 class="red-subtitle">WORKING PRINCIPLE: MUTUAL INDUCTION</h2>
+    <div class="body-text">
+      A transformer is a static electrical device with no moving parts. It transfers electrical power from one circuit to another at the same frequency, while changing the voltage and current.
+    </div>
+    <div class="body-text">
+      It works on the principle of <strong>Mutual Induction</strong>. When alternating current flows through the primary winding, it produces a magnetic field that changes direction and strength 50 times every second (for 50 Hz AC).
+    </div>
+    <div class="body-text">
+      This changing magnetic flux passes through the soft-iron core and links with the secondary coil. According to Faraday’s Law of Electromagnetic Induction, a changing magnetic flux induces an alternating voltage (EMF) across the secondary coil terminals.
+    </div>
+    <div class="formula-box">
+      e = - M &bull; (dI / dt)
+    </div>
+    <div class="body-text">
+      Here, <strong>M</strong> is the coefficient of mutual inductance between the two coils, and <strong>(dI / dt)</strong> is the rate of change of primary current.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7: MATHEMATICAL DERIVATION -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">7</div>
+    <h1 class="red-title">MATHEMATICAL THEORY</h1>
+    <h2 class="red-subtitle">MATHEMATICAL DERIVATION & EQUATIONS</h2>
+    <div class="body-text">
+      Let Np = Number of turns in the primary coil, and Ns = Number of turns in the secondary coil. Let &Phi; be the magnetic flux linked with each turn of the core at any instant.
+    </div>
+    <div class="body-text">
+      By Faraday’s law of induction, the induced EMF in the primary coil is:
+      <br><strong>Ep = - Np &bull; (d&Phi; / dt)</strong>
+    </div>
+    <div class="body-text">
+      Similarly, the induced EMF in the secondary coil is:
+      <br><strong>Es = - Ns &bull; (d&Phi; / dt)</strong>
+    </div>
+    <div class="body-text">
+      Assuming zero flux leakage and negligible resistance in ideal coils, Ep &approx; Vp and Es &approx; Vs. Dividing the two equations gives:
+    </div>
+    <div class="formula-box">
+      Vs / Vp = Ns / Np = K
+    </div>
+    <div class="body-text">
+      Where <strong>K</strong> is called the <strong>Transformation Ratio</strong>.
+      <br>&bull; For a <strong>Step-Down Transformer</strong>: Ns &lt; Np &rArr; <strong>K &lt; 1</strong> and <strong>Vs &lt; Vp</strong>.
+      <br>&bull; By the Law of Conservation of Energy, for an ideal transformer (100% efficient):
+      <br><strong>Input Power = Output Power &rArr; Vp &bull; Ip = Vs &bull; Is</strong>
+      <br>This gives: <strong>Is / Ip = Vp / Vs = 1 / K</strong>.
+      <br>Therefore, as voltage is stepped down, current is stepped up proportionately (Is &gt; Ip).
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8: MATERIALS REQUIRED -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">8</div>
+    <h1 class="red-title">MATERIALS REQUIRED</h1>
+    <h2 class="red-subtitle">APPARATUS AND COMPONENT SPECIFICATIONS</h2>
+    <div class="body-text">
+      The following components and instruments were used to build and test the Step-Down Transformer model:
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">Component</th>
+          <th style="width: 44%;">Rating / Specification</th>
+          <th style="width: 28%;">Function in Circuit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Laminated Core</strong></td>
+          <td>Silicon steel E and I stampings with insulating lacquer coat</td>
+          <td>Guides magnetic flux and prevents eddy currents</td>
+        </tr>
+        <tr>
+          <td><strong>Primary Coil</strong></td>
+          <td>28 SWG enamelled copper wire (approx. 1000 turns)</td>
+          <td>Takes 220 V AC input to produce magnetic flux</td>
+        </tr>
+        <tr>
+          <td><strong>Secondary Coil</strong></td>
+          <td>20 SWG enamelled copper wire (approx. 100 turns, thicker gauge)</td>
+          <td>Steps down voltage and supplies output current</td>
+        </tr>
+        <tr>
+          <td><strong>Insulating Bobbin</strong></td>
+          <td>Plastic / Bakelite rectangular former</td>
+          <td>Supports the coils and isolates them from the iron core</td>
+        </tr>
+        <tr>
+          <td><strong>Insulating Tape</strong></td>
+          <td>Mylar / Empire cloth tape</td>
+          <td>Provides electrical insulation between primary and secondary</td>
+        </tr>
+        <tr>
+          <td><strong>Clamping Frame</strong></td>
+          <td>Metal brackets with nuts and bolts</td>
+          <td>Holds the E-I stampings tightly to stop core vibrations</td>
+        </tr>
+        <tr>
+          <td><strong>Multimeters</strong></td>
+          <td>Digital multimeters (AC Voltage & Current ranges)</td>
+          <td>Measures Vp, Vs, Ip, and Is accurately</td>
+        </tr>
+        <tr>
+          <td><strong>Resistive Load</strong></td>
+          <td>12 V, 10 W automotive bulb or rheostat</td>
+          <td>Draws secondary current to measure power under load</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 9: CIRCUIT DIAGRAM -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">9</div>
+    <h1 class="red-title">CIRCUIT DIAGRAM</h1>
+    <h2 class="red-subtitle">SCHEMATIC DIAGRAM OF STEP-DOWN TRANSFORMER</h2>
+    <div class="diagram-container">
+      <img src="transformer_circuit_diagram.png" alt="Step-Down Transformer Circuit Diagram">
+    </div>
+    <div class="body-text" style="font-size: 15.5pt; text-align: center; margin-top: 4px;">
+      <strong>Figure 1:</strong> Circuit diagram showing the primary winding (Np = 1000 turns), laminated soft iron core, secondary winding (Ns = 100 turns), and AC meters connected to the load.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 10: PROCEDURE -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">10</div>
+    <h1 class="red-title">PROCEDURE</h1>
+    <h2 class="red-subtitle">STEP-BY-STEP ASSEMBLY AND TESTING</h2>
+    <div class="body-text">
+      <strong>Step 1 (Core Preparation):</strong> We inspected the silicon steel E and I stampings. Each lamination has a thin coating of varnish to prevent electrical contact between adjacent plates.
+    </div>
+    <div class="body-text">
+      <strong>Step 2 (Primary Winding):</strong> We wound approximately 1000 turns of thin 28 SWG enamelled copper wire around the central limb of the plastic bobbin. The wire was wound tightly in neat, even layers. After completing 1000 turns, we wrapped two layers of insulating tape over it.
+    </div>
+    <div class="body-text">
+      <strong>Step 3 (Secondary Winding):</strong> Over the insulated primary layer, we wound 100 turns of thicker 20 SWG copper wire. Thicker wire was chosen because the secondary current is higher, which keeps heating low.
+    </div>
+    <div class="body-text">
+      <strong>Step 4 (Core Assembly):</strong> We inserted the E and I stampings alternately into the bobbin from opposite sides to create a closed magnetic loop. We clamped the frame tightly using screws to prevent buzzing noise.
+    </div>
+    <div class="body-text">
+      <strong>Step 5 (Testing & Readings):</strong> We connected the primary to an AC supply and connected a 12 V bulb across the secondary. Using digital multimeters, we recorded Vp, Ip, Vs, and Is at five different input voltage levels.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 11: OBSERVATIONS -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">11</div>
+    <h1 class="red-title">OBSERVATIONS</h1>
+    <h2 class="red-subtitle">ELECTRICAL MEASUREMENTS & DATA TABLE</h2>
+    <div class="body-text">
+      &bull; Number of turns in primary coil (Np) = <strong>1000 turns</strong>
+      <br>&bull; Number of turns in secondary coil (Ns) = <strong>100 turns</strong>
+      <br>&bull; Theoretical Turns Ratio (K_theo) = Ns / Np = 100 / 1000 = <strong>0.100</strong>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 10%;">Obs. No.</th>
+          <th style="width: 18%;">Input Voltage Vp (V)</th>
+          <th style="width: 18%;">Input Current Ip (A)</th>
+          <th style="width: 18%;">Output Voltage Vs (V)</th>
+          <th style="width: 18%;">Output Current Is (A)</th>
+          <th style="width: 18%;">Measured Ratio (Vs / Vp)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>220.0</td>
+          <td>0.120</td>
+          <td>21.2</td>
+          <td>1.10</td>
+          <td>0.0964</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>200.0</td>
+          <td>0.110</td>
+          <td>19.3</td>
+          <td>1.00</td>
+          <td>0.0965</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>180.0</td>
+          <td>0.098</td>
+          <td>17.4</td>
+          <td>0.90</td>
+          <td>0.0967</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>160.0</td>
+          <td>0.088</td>
+          <td>15.5</td>
+          <td>0.80</td>
+          <td>0.0969</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>140.0</td>
+          <td>0.076</td>
+          <td>13.5</td>
+          <td>0.70</td>
+          <td>0.0964</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="body-text" style="margin-top: 10px;">
+      <strong>Mean Measured Transformation Ratio (Vs / Vp):</strong>
+      <br>Vs / Vp = (0.0964 + 0.0965 + 0.0967 + 0.0969 + 0.0964) / 5 = <strong>0.0966 &approx; 0.097</strong>
+      <br>The small difference (~3.4%) between theoretical (0.100) and experimental (0.097) values is due to winding resistance and slight magnetic flux leakage in the air gaps of the core.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 12: CALCULATIONS -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">12</div>
+    <h1 class="red-title">CALCULATIONS</h1>
+    <h2 class="red-subtitle">POWER & EFFICIENCY CALCULATIONS</h2>
+    <div class="body-text">
+      Taking the values from Observation Reading 1:
+      <br>Input Voltage (Vp) = 220.0 V, Input Current (Ip) = 0.120 A
+      <br>Output Voltage (Vs) = 21.2 V, Output Current (Is) = 1.10 A
+    </div>
+    <div class="body-text">
+      <strong>1. Input Electrical Power (Pin):</strong>
+      <br>Pin = Vp &bull; Ip = 220.0 V &times; 0.120 A = <strong>26.40 Watts</strong>
+    </div>
+    <div class="body-text">
+      <strong>2. Output Electrical Power (Pout):</strong>
+      <br>Pout = Vs &bull; Is = 21.2 V &times; 1.10 A = <strong>23.32 Watts</strong>
+    </div>
+    <div class="body-text">
+      <strong>3. Power Loss in Transformer (Ploss):</strong>
+      <br>Ploss = Pin - Pout = 26.40 W - 23.32 W = <strong>3.08 Watts</strong>
+    </div>
+    <div class="body-text">
+      <strong>4. Transformation Efficiency (&eta;):</strong>
+      <br>&eta; = (Output Power / Input Power) &times; 100%
+      <br>&eta; = (23.32 / 26.40) &times; 100% = <strong>88.33%</strong>
+    </div>
+    <div class="formula-box">
+      Average Practical Efficiency (&eta;_avg) &approx; 88.1%
+    </div>
+    <div class="body-text">
+      The efficiency of around 88% is typical for small laboratory transformers of this size, where small coil heating and core losses are present.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 13: ENERGY LOSSES -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">13</div>
+    <h1 class="red-title">ENERGY LOSSES</h1>
+    <h2 class="red-subtitle">MAJOR LOSSES AND HOW TO MINIMIZE THEM</h2>
+    <div class="body-text">
+      In a real transformer, output power is always less than input power due to four main losses:
+    </div>
+    <div class="body-text">
+      <strong>1. Copper Loss (I²R Loss):</strong>
+      <br>The copper wire has some electrical resistance. Current flowing through the coils produces heat energy (I²R).
+      <br><em>How to minimize:</em> Use thicker copper wire on the secondary winding where current is higher, which keeps resistance low.
+    </div>
+    <div class="body-text">
+      <strong>2. Eddy Current Loss:</strong>
+      <br>The alternating magnetic flux in the iron core induces circulating currents (eddy currents), which produce heat in the iron.
+      <br><em>How to minimize:</em> Build the core from thin, varnished sheets (laminations) instead of a solid iron block. The varnish breaks the path of the circulating currents.
+    </div>
+    <div class="body-text">
+      <strong>3. Hysteresis Loss:</strong>
+      <br>The iron core is magnetized and demagnetized 50 times every second. Repeated reversal of magnetic domains takes energy, which is released as heat.
+      <br><em>How to minimize:</em> Use high-permeability soft iron or silicon steel, which has a very narrow hysteresis loop.
+    </div>
+    <div class="body-text">
+      <strong>4. Flux Leakage:</strong>
+      <br>Not all magnetic lines produced by the primary pass through the secondary coil; some leak through the air.
+      <br><em>How to minimize:</em> Wind the secondary coil directly on top of the primary coil on the central limb of the core.
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 14: PRECAUTIONS -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">14</div>
+    <h1 class="red-title">PRECAUTIONS</h1>
+    <h2 class="red-subtitle">SAFETY MEASURES & SOURCES OF ERROR</h2>
+    <div class="body-text">
+      <strong>A. SAFETY PRECAUTIONS:</strong>
+    </div>
+    <ul class="bullet-list">
+      <li>All 220 V primary connections must be properly insulated using heat-shrink sleeves or tape to avoid electric shock.</li>
+      <li>Never connect Direct Current (DC) to a transformer. Since DC does not change, there is zero inductive reactance, leading to very large current that will burn the primary coil.</li>
+      <li>Always clamp the E-I core laminations firmly with bolts to prevent humming noise and magnetic flux loss.</li>
+      <li>Do not touch the coils during continuous operation as the windings can become warm.</li>
+    </ul>
+
+    <div class="body-text" style="margin-top: 6mm;">
+      <strong>B. SOURCES OF EXPERIMENTAL ERROR:</strong>
+    </div>
+    <ul class="bullet-list">
+      <li>Mains AC supply voltage fluctuates slightly (±5 V) during the test.</li>
+      <li>Small air gaps between the E and I laminations reduce ideal magnetic flux linkage.</li>
+      <li>Resistance in connecting wires and clip terminals causes a small voltage drop.</li>
+      <li>Meters have internal resistance and a small calibration tolerance.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 15: CONCLUSION & BIBLIOGRAPHY -->
+<div class="page">
+  <div class="inner-border">
+    <div class="pg-num">15</div>
+    <h1 class="red-title">CONCLUSION</h1>
+    <h2 class="red-subtitle">1. RESULTS OF THE INVESTIGATION</h2>
+    <ul class="bullet-list">
+      <li>The ratio of secondary voltage to primary voltage (Vs / Vp &approx; 0.097) closely matches the ratio of turns (Ns / Np = 0.100). This verifies the fundamental transformer equation.</li>
+      <li>The working model successfully functions as a Step-Down Transformer, reducing voltage from 220 V down to approximately 21.2 V AC while increasing current capacity.</li>
+      <li>The practical operating efficiency of the transformer model under load was determined to be approximately <strong>88.1%</strong>.</li>
+    </ul>
+
+    <h2 class="red-subtitle" style="margin-top: 8mm;">2. BIBLIOGRAPHY</h2>
+    <ul class="bullet-list">
+      <li>NCERT Physics Class XII (Part I): Chapter 7 – Alternating Current, NCERT, New Delhi.</li>
+      <li>CBSE Comprehensive Laboratory Manual in Physics (Class XII), Laxmi Publications.</li>
+      <li>Concepts of Physics (Volume 2) by Dr. H.C. Verma, Bharati Bhawan Publishers.</li>
+      <li>Fundamentals of Physics by Halliday, Resnick, and Walker, Wiley India.</li>
+      <li>Official Portal of Central Board of Secondary Education: https://cbse.gov.in</li>
+    </ul>
+
+    <div style="margin-top: auto; margin-bottom: 6mm; text-align: center; font-size: 15pt; color: #475569; font-style: italic;">
+      *** End of Project Report ***
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

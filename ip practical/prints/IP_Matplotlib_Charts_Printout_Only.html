@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Matplotlib Chart Slips - Only Output Screenshots</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  .a4-container {
+    width: 190mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8mm;
+  }
+  .slip-box {
+    text-align: center;
+  }
+  .slip-box img {
+    width: 100%;
+    max-height: 82mm;
+    object-fit: contain;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+  <div class="a4-container">
+    <!-- CHART 1: Practical 14 -->
+    <div class="slip-box">
+      <img src="p14_win11_matplotlib_screenshot.png" alt="Practical 14 Matplotlib Output">
+    </div>
+
+    <!-- CHART 2: Practical 15 -->
+    <div class="slip-box">
+      <img src="p15_win11_matplotlib_screenshot.png" alt="Practical 15 Matplotlib Output">
+    </div>
+
+    <!-- CHART 3: Practical 16 -->
+    <div class="slip-box">
+      <img src="p16_win11_matplotlib_screenshot.png" alt="Practical 16 Matplotlib Output">
+    </div>
+  </div>
+</body>
+</html>
