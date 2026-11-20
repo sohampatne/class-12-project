@@ -29,13 +29,13 @@
 class12-projects/
 │
 ├── 01 - HANDWRITING WORK (English ASL - Do Tonight)/
-│   ├── English_ASL_Transcription_Master.pdf       (14 pages text for handwriting)
+│   ├── English_ASL_Transcription_Master.pdf       (20 pages text & diagrams for handwriting)
 │   ├── Moms_Mechanical_Table_Ruling_Guide_SQL.pdf (Mom's 2-page ruling guide)
 │   └── Parents_Briefing_Final_Decision.pdf        (Parent briefing)
 │
 ├── 02 - TEACHER SPOT-CHECKING (Show on Phone)/     <-- STRICTLY 3 PROJECT PDFS ONLY!
-│   ├── Chemistry_Project_Strictly_Matching.pdf    (15 pages - Foaming of Soaps)
-│   ├── English_ASL_Transcription_Master.pdf       (14 pages - English ASL)
+│   ├── Chemistry_Project_Strictly_Matching.pdf    (15 pages - Foaming of Soaps, Intro before App)
+│   ├── English_ASL_Transcription_Master.pdf       (20 pages - English ASL with charts & diagrams)
 │   └── Physics_Project_Strictly_Matching.pdf      (15 pages - Wireless Power Transfer & Mutual Induction)
 │
 ├── 03 - READY FOR PRINT & SPIRAL BINDING (Physics & Chemistry)/
@@ -65,7 +65,7 @@ class12-projects/
 │       ├── 02_Parents_Briefing_Final_Decision.pdf
 │       ├── 03_Moms_Mechanical_Table_Ruling_Guide_SQL.pdf
 │       ├── 04_CBSE_Class12_All_Subjects_Exhaustive_Viva_Master_Guide.pdf (9 pages)
-│       ├── 05_English_ASL_Transcription_Master_14Pages.pdf
+│       ├── 05_English_ASL_Transcription_Master_20Pages.pdf
 │       ├── 06_Physics_EMI_Clean_Modern_Draft.pdf
 │       └── 07_Chemistry_Soaps_Clean_Modern_Draft.pdf
 │
